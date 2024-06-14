@@ -43,11 +43,11 @@ const NewChat = () => {
         </label>
         <div>
           <p className="text-center text-gray-500 lg:mt-3 mt-1  select-none ">
-            <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[12px] rounded-full ">
+            <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full ">
               <span>
                 <span
-                  className={`text-lg cursor-pointer  px-2 py-1 ${isRegistering
-                    ? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-1"
+                  className={` cursor-pointer  px-2 py-[8px] ${isRegistering
+                    ? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"
                     : "text-gray-500"
                     }`}
                   onClick={() => setIsRegistering(true)}
@@ -57,9 +57,9 @@ const NewChat = () => {
               </span>
               <span>
                 <span
-                  className={`text-lg cursor-pointer  px-2 py-1 ${isRegistering
+                  className={`cursor-pointer  px-2 py-[8px] ${isRegistering
                     ? "text-gray-500"
-                    : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-1"
+                    : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"
                     }`}
                   onClick={() => setIsRegistering(false)}
                 >
