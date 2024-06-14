@@ -97,6 +97,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     if (e.target && e.target.files) {
       setIsFileUploading(true);
       const file = e.target.files[0];
+      console.log("🚀 ~ handleImageUpload ~ file:", file)
       const formData = new FormData();
       formData.append("file", file);
       fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {

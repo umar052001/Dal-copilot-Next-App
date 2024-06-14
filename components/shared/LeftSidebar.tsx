@@ -17,12 +17,14 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 const LeftSidebar = () => {
   const { language, setLanguage } = useLanguage();
   const data = determineDictionary(language);
+
   return (
     <div
       className={`${language === "en" ? "order-1" : "order-3"
         }  bg-[#F3F3EE]  min-h-screen flex justify-between  flex-col p-6 `}
     >
       <div className="flex flex-col gap-5  items-center">
+        
         <div className=" flex-between gap-7  ">
           <Image
             src="/LogoMark&Type.svg"

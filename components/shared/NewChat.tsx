@@ -6,6 +6,8 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import Image from "next/image";
+import { RiFileHistoryLine } from "react-icons/ri";
+import { useSidebar } from '@/context/Sidebarcontext';
 
 const NewChat = () => {
   const { language } = useLanguage();
@@ -19,10 +21,31 @@ const NewChat = () => {
     data["how_to_purify_water_in_the_wild"],
     data["whats_the_meaning_of_al_dente?"],
   ];
+  const {
+    isLeftSidebarOpen,
+    isRightSidebarOpen,
+    toggleLeftSidebar,
+    toggleRightSidebar,
+  } = useSidebar();
+
+
   return (
 
-    <main>
-      <div className="flex-center">
+    <main >
+      <div className="px-3 py-2  lg:hidden flex-between ">
+        <label className="hamburger" onClick={toggleLeftSidebar}>
+          <input type="checkbox" />
+          <svg viewBox="0 0 32 32">
+            <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+            <path className="line" d="M7 16 27 16"></path>
+          </svg>
+        </label>
+
+        <div>
+          <RiFileHistoryLine size={30} />
+        </div>
+      </div>
+      <div className=" lg:hidden  flex-center mt-10">
 
         <Image
           src="/LogoMark&Type.svg"
@@ -33,9 +56,9 @@ const NewChat = () => {
         />
       </div>
 
-      <div className="px-10 bg-yellow-300 pt-20 pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center mt-32">
+      <div className="md:px-10 px-5  pt-20 pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center lg:mt-32">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold md:h1-bold h2-bold">{data.where_knowledge_begins}</h1>
+          <h1 className=" text-center font-extrabold h1-bold ">{data.where_knowledge_begins}</h1>
         )}
         <div className={`w-full flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {

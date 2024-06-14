@@ -1,25 +1,13 @@
-import LeftSidebar from "@/components/shared/LeftSidebar";
-import NewChat from "@/components/shared/NewChat";
-import RightSideBar from "@/components/shared/RightSideBar";
+// app/page.js
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import HomeClient from "./homeClient";
 
-export default function Home() {
+export default async function HomePage() {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
   }
-  return (
-    <main className=" grid grid-cols-6  ">
-      <div className=" lg:col-span-1 col-span-0  lg:block hidden ">
-        <LeftSidebar />
-      </div>
-      <div className=" lg:col-span-4 col-span-6">
-        <NewChat />
-      </div>
-      <div className="lg:col-span-1 col-span-0 lg:block hidden">
-        <RightSideBar />
-      </div>
-    </main>
-  );
+
+  return <HomeClient />;
 }
