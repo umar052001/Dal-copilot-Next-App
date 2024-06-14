@@ -95,26 +95,38 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
   }
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
-      setIsFileUploading(true);
       const file = e.target.files[0];
-      console.log("🚀 ~ handleImageUpload ~ file:", file)
-      const formData = new FormData();
-      formData.append("file", file);
-      fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setIsFileUploading(false);
-          toast({
-            title: "File",
-            description: "File Uploaded Successfully!",
-            variant: "primary",
-          });
-          console.log(data);
+
+      if (file.type === 'application/pdf') {
+        setIsFileUploading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+        fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
+          method: "POST",
+          body: formData,
         })
-        .catch((error) => console.error(error));
+          .then((response) => response.json())
+          .then((data) => {
+            setIsFileUploading(false);
+            toast({
+              title: "File",
+              description: "File Uploaded Successfully!",
+              variant: "primary",
+            });
+            console.log(data);
+          })
+          .catch((error) => console.error(error));
+
+
+      } else {
+        toast({
+          title: "File Error",
+          description: "Only PDF files are allowed.",
+          variant: "destructive",
+        });
+      }
+
+
     }
   };
 

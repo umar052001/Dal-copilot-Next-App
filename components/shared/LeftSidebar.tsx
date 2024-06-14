@@ -24,8 +24,8 @@ const LeftSidebar = () => {
         }  bg-[#F3F3EE]  min-h-screen flex justify-between  flex-col p-6 `}
     >
       <div className="flex flex-col gap-5  items-center">
-        
-        <div className=" flex-between gap-7  ">
+
+        <div className=" xl:flex xl:flex-row  flex   flex-col-reverse  justify-between items-center gap-7 ">
           <Image
             src="/LogoMark&Type.svg"
             className="mb-4"
@@ -39,7 +39,7 @@ const LeftSidebar = () => {
             alt="icon"
             width={40}
             height={40}
-            className="object-cover h-10 w-10"
+            className="object-cover "
           />
         </div>
 

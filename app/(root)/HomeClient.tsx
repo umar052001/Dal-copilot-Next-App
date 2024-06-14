@@ -29,7 +29,7 @@ export default function HomeClient() {
             <div className={`lg:col-span-1 col-span-0 lg:block hidden`} >
                 <LeftSidebar />
             </div>
-            <div className={`fixed inset-y-0 left-0 z-50 lg:col-span-1 col-span-0 ${isLeftSidebarOpen ? 'block' : 'hidden'} md:block`} >
+            <div className={` lg:col-span-4 col-span-6`} >
                 <NewChat />
             </div>
             <div className="lg:col-span-1 col-span-0 lg:block hidden">
