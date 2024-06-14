@@ -1,10 +1,11 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface SidebarContextProps {
     isLeftSidebarOpen: boolean;
     isRightSidebarOpen: boolean;
-
+    PDFupload: boolean;
+    setPDFupload: Dispatch<SetStateAction<boolean>>;
     toggleLeftSidebar: () => void;
     toggleRightSidebar: () => void;
 }
@@ -14,11 +15,10 @@ const SidebarContext = createContext<SidebarContextProps | undefined>(undefined)
 export const SidebarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
     const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
-    console.log('leftsidebar', isLeftSidebarOpen)
+    const [PDFupload, setPDFupload] = useState(false);
 
     const toggleLeftSidebar = () => {
         setIsLeftSidebarOpen(!isLeftSidebarOpen);
-        console.log('leftsidebarInner', isLeftSidebarOpen)
 
     };
 
@@ -32,6 +32,8 @@ export const SidebarProvider: React.FC<{ children: ReactNode }> = ({ children })
                 isRightSidebarOpen,
                 toggleLeftSidebar,
                 toggleRightSidebar,
+                PDFupload,
+                setPDFupload,
             }}
         >
             {children}

@@ -23,7 +23,7 @@ export default function HomeClient() {
         toggleLeftSidebar,
         toggleRightSidebar,
     } = useSidebar();
-    console.log("HomeClient ~ isLeftSidebarOpen:", isLeftSidebarOpen)
+    // console.log("HomeClient ~ isLeftSidebarOpen:", isLeftSidebarOpen)
     return (
         <main className="grid grid-cols-6">
             <div className={`lg:col-span-1 col-span-0 lg:block hidden`} >

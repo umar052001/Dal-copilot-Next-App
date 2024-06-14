@@ -16,6 +16,7 @@ import { Switch } from "../ui/switch";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
+import { useSidebar } from '@/context/Sidebarcontext';
 
 const formSchema = z.object({
   prompt: z.string().min(2),
@@ -93,14 +94,20 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
         .catch((error) => console.error(error));
     }
   }
+
+  const {
+    PDFupload, setPDFupload
+  } = useSidebar();
+
+
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
 
-      if (file.type === 'application/pdf') {
+      if (file?.type === 'application/pdf') {
+        setPDFupload(true);
         setIsFileUploading(true);
         const formData = new FormData();
-        formData.append("file", file);
         fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
           method: "POST",
           body: formData,
@@ -119,6 +126,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
 
 
       } else {
+        setPDFupload(false);
         toast({
           title: "File Error",
           description: "Only PDF files are allowed.",

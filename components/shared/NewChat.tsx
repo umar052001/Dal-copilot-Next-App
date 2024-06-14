@@ -8,6 +8,7 @@ import { Skeleton } from "../ui/skeleton";
 import Image from "next/image";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useSidebar } from '@/context/Sidebarcontext';
+import { useToast } from "../ui/use-toast";
 
 const NewChat = () => {
   const { language } = useLanguage();
@@ -26,10 +27,21 @@ const NewChat = () => {
     isRightSidebarOpen,
     toggleLeftSidebar,
     toggleRightSidebar,
+    PDFupload, setPDFupload
   } = useSidebar();
-
+  const { toast } = useToast();
   const [isRegistering, setIsRegistering] = useState(true);
-
+  const handleClick = () => {
+    if (isRegistering && PDFupload) {
+      setIsRegistering(false);
+    } else {
+      toast({
+        title: "Instruction",
+        description: "Please Attach PDF File First !!",
+        variant: "primary",
+      });
+    }
+  };
   return (
 
     <main >
@@ -56,12 +68,18 @@ const NewChat = () => {
                 </span>
               </span>
               <span>
-                <span
-                  className={`cursor-pointer  px-2 py-[8px] ${isRegistering
-                    ? "text-gray-500"
+                {/* <span
+                  className={`cursor-pointer  px-2 py-[8px] ${isRegistering && PDFupload === true ? "text-gray-500"
                     : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"
                     }`}
                   onClick={() => setIsRegistering(false)}
+                >
+                  Ask PDF
+                </span> */}
+
+                <span
+                  className={`cursor-pointer px-2 py-[8px] ${isRegistering ? "text-gray-500" : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"}`}
+                  onClick={handleClick}
                 >
                   Ask PDF
                 </span>
