@@ -28,23 +28,52 @@ const NewChat = () => {
     toggleRightSidebar,
   } = useSidebar();
 
+  const [isRegistering, setIsRegistering] = useState(true);
 
   return (
 
     <main >
-      <div className="px-3 py-2  lg:hidden flex-between ">
-        <label className="hamburger" onClick={toggleLeftSidebar}>
+      <div className="px-3 py-3    lg:flex-center flex-between ">
+        <label className="hamburger lg:hidden" onClick={toggleLeftSidebar}>
           <input type="checkbox" />
           <svg viewBox="0 0 32 32">
             <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
             <path className="line" d="M7 16 27 16"></path>
           </svg>
         </label>
-
         <div>
+          <p className="text-center text-gray-500 lg:mt-3 mt-1  select-none ">
+            <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[12px] rounded-full ">
+              <span>
+                <span
+                  className={`text-lg cursor-pointer  px-2 py-1 ${isRegistering
+                    ? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-1"
+                    : "text-gray-500"
+                    }`}
+                  onClick={() => setIsRegistering(true)}
+                >
+                  Chat with AI
+                </span>
+              </span>
+              <span>
+                <span
+                  className={`text-lg cursor-pointer  px-2 py-1 ${isRegistering
+                    ? "text-gray-500"
+                    : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-1"
+                    }`}
+                  onClick={() => setIsRegistering(false)}
+                >
+                  Ask PDF
+                </span>
+              </span>
+            </span>
+          </p>
+        </div>
+        <div className="lg:hidden">
           <RiFileHistoryLine size={30} />
         </div>
       </div>
+
       <div className=" lg:hidden  flex-center mt-10">
 
         <Image
@@ -55,6 +84,9 @@ const NewChat = () => {
           height={56}
         />
       </div>
+
+
+
 
       <div className="md:px-10 px-5  pt-20 pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center lg:mt-32">
         {(messages.length === 0 && !loading) && (
