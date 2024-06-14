@@ -34,7 +34,7 @@ const NewChat = () => {
 
     <main >
       <div className="px-3 py-3    lg:flex-center flex-between ">
-        <label className="hamburger lg:hidden" onClick={toggleLeftSidebar}>
+        <label className="hamburger lg:hidden bg-slate-100 border rounded-full " onClick={toggleLeftSidebar}>
           <input type="checkbox" />
           <svg viewBox="0 0 32 32">
             <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
@@ -42,7 +42,7 @@ const NewChat = () => {
           </svg>
         </label>
         <div>
-          <p className="text-center text-gray-500 lg:mt-3 mt-1  select-none ">
+          <p className="text-center text-gray-500 lg:mt-3   select-none ">
             <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full ">
               <span>
                 <span
@@ -69,7 +69,7 @@ const NewChat = () => {
             </span>
           </p>
         </div>
-        <div className="lg:hidden">
+        <div className="lg:hidden bg-slate-100 border rounded-full p-2">
           <RiFileHistoryLine size={30} />
         </div>
       </div>
