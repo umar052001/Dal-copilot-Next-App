@@ -17,16 +17,28 @@ import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
+import { AiTwotoneFilePdf } from "react-icons/ai";
 
 const formSchema = z.object({
   prompt: z.string().min(2),
   pro: z.boolean(),
 });
-
+interface FileProps {
+  name: string;
+  lastModified: number;
+  size: number;
+}
 const NewChatForm = ({ setMessages, setLoading }: any) => {
   const { language } = useLanguage();
   const { toast } = useToast();
   const [isFileUploading, setIsFileUploading] = useState<Boolean>(false);
+  const [fileObject, setFileObject] = useState<{ name: string, sizeInMb: string, lastModifiedFormatted: string }>({
+    name: '',
+    sizeInMb: '',
+    lastModifiedFormatted: ''
+  });
+
+
   const data = determineDictionary(language);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -103,8 +115,27 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
+      console.log(file)
 
       if (file?.type === 'application/pdf') {
+        const fileSizeInMB = (file?.size / (1024 * 1024)).toFixed(2);
+
+        // Format the last modified date
+        // const formattedDate = file?.lastModifiedDate.toLocaleDateString('en-GB', {
+        //   day: '2-digit',
+        //   month: 'long',
+        //   year: 'numeric',
+        // });
+        const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
+        const sizeInMb = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+        const lastModifiedDate = new Date(file.lastModified);
+        const lastModifiedFormatted = `${lastModifiedDate.getDate()} ${lastModifiedDate.toLocaleString('default', { month: 'long' })}, ${lastModifiedDate.getFullYear()}`;
+
+        setFileObject({
+          name: fileNameWithoutExtension,
+          sizeInMb: sizeInMb,
+          lastModifiedFormatted: lastModifiedFormatted
+        });
         setPDFupload(true);
         setIsFileUploading(true);
         const formData = new FormData();
@@ -197,8 +228,16 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
                 />
                 Attach
               </label>
+              <p className=" flex-center">
+                <AiTwotoneFilePdf />
+                {fileObject?.name}
+                {fileObject?.sizeInMb}
+                {fileObject?.lastModifiedFormatted}
+              </p>
+
 
             </div>
+
           </div>
           <FormField
             control={form.control}
