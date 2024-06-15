@@ -4,7 +4,7 @@ import NewChat from "@/components/shared/NewChat";
 import RightSideBar from "@/components/shared/RightSideBar";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { useAtom } from 'jotai'
-import { todoAtom, SidebarAtom } from '@/context/atom'
+import { todoAtom, SidebarAtom, RightSidebarAtom } from '@/context/atom'
 
 export default function HomeClient() {
 
@@ -27,17 +27,19 @@ export default function HomeClient() {
     } = useSidebar();
 
     const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+    const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
 
     // console.log("HomeClient ~ isLeftSidebarOpen:", isLeftSidebarOpen)
     return (
         <main className="grid grid-cols-6">
-            <div className={`lg:col-span-1 col-span-0 lg:block hidden`} >
+            <div className={`${LeftSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1  col-span-0 lg:block hidden'}`}>
                 <LeftSidebar />
             </div>
+
             <div className={`lg:col-span-4 col-span-6 `} >
                 <NewChat />
             </div>
-            <div className="lg:col-span-1 col-span-0 lg:block hidden">
+            <div className={`${RightSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1 col-span-0 lg:block hidden'}`}>
                 <RightSideBar />
             </div>
         </main>

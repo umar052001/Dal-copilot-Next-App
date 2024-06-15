@@ -10,10 +10,12 @@ import { RiFileHistoryLine } from "react-icons/ri";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
-import { todoAtom, SidebarAtom } from '@/context/atom'
+import { todoAtom, SidebarAtom, RightSidebarAtom } from '@/context/atom'
 import Typewriter from '@/components/ui/typeWriter'
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import Markdown from 'react-markdown'
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { HiMenuAlt4 } from "react-icons/hi";
 
 
 const NewChat = () => {
@@ -51,10 +53,16 @@ const NewChat = () => {
     }
   };
   const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+  const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
 
-  const handleClickincrement: MouseEventHandler<HTMLDivElement> =() => {
+  const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsLeftSidebarOpen(!LeftSidebarOpen)
   };
+ 
+  const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
+    setIsRightSidebarOpen(!RightSidebarOpen)
+  };
+ 
 
 
   const markdownContent = `# Heading 1  *Pluto* \n\nThis is a paragraph of text with **bold** and *italic* formatting.`;
@@ -77,19 +85,20 @@ const NewChat = () => {
 
 
 
-      <div className="px-3 py-3 lg:flex-center flex-between ">
+      <div className="px-6 py-5  lg:flex-center flex-between ">
 
-        <div className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 flex-center" onClick={(() => setIsLeftSidebarOpen(!LeftSidebarOpen))}>
-          <label >
+        {/*<div className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 flex-center">
+           <label >
             <input type="checkbox" />
             <svg viewBox="0 0 32 32">
               <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
               <path className="line" d="M7 16 27 16"></path>
             </svg>
           </label>
+        </div> */}
+        <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
+          <HiMenuAlt4 size={30} stroke-width={0.1} />
         </div>
-
-
 
         <div>
           <p className="text-center text-gray-500 lg:mt-3   select-none ">
@@ -116,7 +125,7 @@ const NewChat = () => {
             </span>
           </p>
         </div>
-        <div className="lg:hidden bg-slate-100 border rounded-full p-2">
+        <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickRightSidebar}>
           <RiFileHistoryLine size={30} />
         </div>
       </div>

@@ -1,6 +1,8 @@
 "use client";
 import { SignedIn } from "@clerk/clerk-react";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { MouseEventHandler } from "react";
+
 import Image from "next/image";
 import {
   Accordion,
@@ -17,22 +19,34 @@ import { useAtom } from 'jotai'
 import { fileObjectAtom, fileArrayAtom, SidebarAtom } from '@/context/atom'
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { MdSmsFailed } from "react-icons/md";
+import { HiMenuAlt4 } from "react-icons/hi";
+import { RxCross2 } from "react-icons/rx";
+
+
+
 const LeftSidebar = () => {
   const { language, setLanguage } = useLanguage();
   const data = determineDictionary(language);
   const [fileObject] = useAtom(fileObjectAtom);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
   const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
-  console.log(LeftSidebarOpen)
+
+  const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
+    setIsLeftSidebarOpen(!LeftSidebarOpen)
+  };
 
   return (
     <div
       className={`${language === "en" ? "order-1" : "order-3"
-        }  bg-[#F3F3EE]  min-h-screen flex justify-between  flex-col p-6 `}
+        }  bg-[#F3F3EE]  min-h-screen flex justify-between  flex-col p-6   `}
     >
       <div className="flex flex-col gap-5  items-center">
 
-        <div className=" xl:flex xl:flex-row  flex   flex-col-reverse  justify-between items-center gap-7 ">
+        
+        <div className=" flex   justify-between items-start  w-full  gap-7">
+          <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
+            <RxCross2 size={30} stroke-width={0.3} />
+          </div>
           <Image
             src="/LogoMark&Type.svg"
             className="mb-4"
@@ -46,7 +60,7 @@ const LeftSidebar = () => {
             alt="icon"
             width={40}
             height={40}
-            className="object-cover "
+            className="object-cover lg:block hidden"
           />
         </div>
 
