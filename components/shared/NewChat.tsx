@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewChatForm from "../form/NewChatForm";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
@@ -11,7 +11,12 @@ import { useSidebar } from '@/context/Sidebarcontext';
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
 import { todoAtom, SidebarAtom } from '@/context/atom'
-import Typewriter from '@/components/ui/typewriter'
+import Typewriter from '@/components/ui/typeWriter'
+
+import MarkdownPreview from "@uiw/react-markdown-preview";
+import Markdown from 'react-markdown'
+
+
 const NewChat = () => {
   const { language } = useLanguage();
   const [messages, setMessages] = useState<any>([
@@ -53,13 +58,17 @@ const NewChat = () => {
 
   };
 
+
+  const markdownContent = `# Heading 1  *Pluto* \n\nThis is a paragraph of text with **bold** and *italic* formatting.`;
+
+
+
   return (
 
     <main >
-
-
+      
+     
       <div className="px-3 py-3 lg:flex-center flex-between ">
-
         <label className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 " onClick={handleClickincrement}>
           <input type="checkbox" />
           <svg viewBox="0 0 32 32">
@@ -124,27 +133,29 @@ const NewChat = () => {
 
 
 
-      <div className="md:px-10 px-5  lg:pt-36    pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
+      <div className="md:px-10 px-5  lg:pt-16    pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold h1-bold mt-10">{data.where_knowledge_begins}</h1>
+          <h1 className=" text-center font-extrabold h1-bold mt-24">{data.where_knowledge_begins}</h1>
         )}
         <div className={`w-full flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full h-[65vh] ">
+            <ScrollArea className="flex flex-col w-full h-[65vh] bg-yellow-400 ">
 
               {/* <Typewriter text="Hello, this is a typewriter effect!" /> */}
 
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  ">
-                    <p className="bg-dark-400 self-end text-white w-fit max-w-full  px-4 py-2 rounded-3xl text-wrap my-2">
+                    <p className="bg-dark-500  self-end text-white w-fit max-w-full  px-4 py-2 rounded-3xl text-wrap my-2">
                       {message.question}
 
                     </p>
                     <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-2xl text-wrap my-2">
                       {/* {message.answer} */}
-                      <Typewriter text={message.answer} />
+                   <Typewriter text={message.answer} /> 
+                      
+                      {/* <Markdown>{message.answer}</Markdown> */}
                     </p>
                   </div>
                 );
