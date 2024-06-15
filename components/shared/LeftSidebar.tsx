@@ -38,7 +38,7 @@ const LeftSidebar = () => {
   return (
     <div
       className={`${language === "en" ? "order-1" : "order-3"
-        }  bg-[#F3F3EE]  h-screen flex justify-between  flex-col p-6   `}
+        }  bg-[#F3F3EE]  min-h-screen flex justify-between  flex-col p-6   `}
     >
       <div className="flex flex-col gap-5  items-center">
 
