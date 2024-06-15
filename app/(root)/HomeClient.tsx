@@ -42,7 +42,7 @@ export default function HomeClient() {
                     <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
                         <LeftSidebar />
                     </div>
-                    <div className={`lg:col-span-4 col-span-6 bg-green-700 `}>
+                    <div className={`lg:col-span-4 col-span-6  `}>
                         <NewChat />
                     </div>
                     <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>
