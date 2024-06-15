@@ -18,6 +18,10 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
+import { useAtom } from 'jotai'
+import { fileObjectAtom } from '@/context/atom'
+import messege from "@/data/messege.json";
+
 
 const formSchema = z.object({
   prompt: z.string().min(2),
@@ -32,12 +36,12 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
   const { language } = useLanguage();
   const { toast } = useToast();
   const [isFileUploading, setIsFileUploading] = useState<Boolean>(false);
-  const [fileObject, setFileObject] = useState<{ name: string, sizeInMb: string, lastModifiedFormatted: string }>({
-    name: '',
-    sizeInMb: '',
-    lastModifiedFormatted: ''
-  });
-
+  // const [fileObject, setFileObject] = useState<{ name: string, sizeInMb: string, lastModifiedFormatted: string }>({
+  //   name: '',
+  //   sizeInMb: '',
+  //   lastModifiedFormatted: ''
+  // });
+  const [fileObject, setFileObject] = useAtom(fileObjectAtom);
 
   const data = determineDictionary(language);
 
@@ -63,6 +67,17 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     form.reset();
     const fileInput = document.getElementById("file-input") as HTMLInputElement;
     setLoading(true);
+
+
+
+    const newMessage = {
+      question: prompt,
+      answer: messege.answer,
+    };
+    setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+    setLoading(false);
+
+
     if (fileInput && fileInput?.files) {
       const file = fileInput?.files[0];
       if (file === undefined) {
@@ -115,7 +130,6 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
-      console.log(file)
 
       if (file?.type === 'application/pdf') {
         const fileSizeInMB = (file?.size / (1024 * 1024)).toFixed(2);
@@ -174,7 +188,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 w-full flex-col border  border-dark-200 p-2 border-solid"
+        className="flex lg:gap-4 gap-3 w-full flex-col border  border-dark-200 p-2  border-solid"
       >
         <FormField
           control={form.control}
@@ -228,35 +242,61 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
                 />
                 Attach
               </label>
-              <p className=" flex-center">
-                <AiTwotoneFilePdf />
-                {fileObject?.name}
-                {fileObject?.sizeInMb}
-                {fileObject?.lastModifiedFormatted}
-              </p>
-
 
             </div>
-
           </div>
-          <FormField
-            control={form.control}
-            name="pro"
-            render={({ field }) => (
-              <FormItem className="flex-center space-y-0 gap-2">
-                <FormControl>
-                  <Switch
-                    className="[&>span]:bg-primary-500 border-dark-200"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    aria-readonly
-                  />
-                </FormControl>
-                <FormLabel className="text-base">Pro</FormLabel>
-              </FormItem>
-            )}
-          />
+          <div className=" flex-center  ">
+            {/* <section>
+              {
+                fileObject?.name && <div className=" flex-center select-none text-xs gap-2 bg-green-100 border border-green-300 px-2 py-1  rounded-lg">
+                  <AiTwotoneFilePdf size={24} />
+                  <div className=" leading-4">
+                    <p className=" font-extrabold">{fileObject?.name}</p>
+                    <div className="flex-center gap-1">
+                      <p>{fileObject?.sizeInMb}</p> -
+                      <p className=" text-gray-500">{fileObject?.lastModifiedFormatted}</p>
+                    </div>
+                  </div>
+
+                </div>
+              }
+            </section> */}
+
+            <FormField
+              control={form.control}
+              name="pro"
+              render={({ field }) => (
+                <FormItem className="flex-center space-y-0 gap-2">
+                  <FormControl>
+                    <Switch
+                      className="[&>span]:bg-primary-500 border-dark-200"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      aria-readonly
+                    />
+                  </FormControl>
+                  <FormLabel className="text-base">Pro</FormLabel>
+                </FormItem>
+              )}
+            />
+          </div>
+
         </div>
+        <section>
+          {
+            fileObject?.name && <div className=" flex-center select-none text-xs gap-2 bg-green-100 border border-green-200 px-2 py-1  rounded-md">
+              <AiTwotoneFilePdf size={24} />
+
+              <div className=" leading-4">
+                <p className=" font-extrabold">{fileObject?.name}</p>
+                <div className="flex gap-1">
+                  <p>{fileObject?.sizeInMb}</p> -
+                  <p className=" text-gray-500">{fileObject?.lastModifiedFormatted}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </section>
       </form>
     </Form>
   );

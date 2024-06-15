@@ -13,10 +13,15 @@ import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
+import { useAtom } from 'jotai'
+import { fileObjectAtom } from '@/context/atom'
+import { AiTwotoneFilePdf } from "react-icons/ai";
+import { MdSmsFailed } from "react-icons/md";
 
 const LeftSidebar = () => {
   const { language, setLanguage } = useLanguage();
   const data = determineDictionary(language);
+  const [fileObject, setFileObject] = useAtom(fileObjectAtom);
 
   return (
     <div
@@ -78,7 +83,7 @@ const LeftSidebar = () => {
               </div>
             </AccordionTrigger>
             <AccordionContent className="w-full text-wrap flex flex-col gap-2">
-              <div className="flex gap-2 border border-solid border-dark-100 cursor-pointer hover:bg-dark-100 p-2">
+              {/* <div className="flex gap-2 border border-solid border-dark-100 cursor-pointer hover:bg-dark-100 p-2">
                 <Image
                   src="/icons/docs.svg"
                   alt="search"
@@ -86,7 +91,68 @@ const LeftSidebar = () => {
                   height={15}
                 />
                 {data.documents}
-              </div>
+              </div> */}
+
+
+
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full body-regular  "
+              >
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className=" no-underline  py-0 pb-2 ">
+                    <div className="flex gap-2 border border-solid border-dark-100 cursor-pointer hover:bg-dark-100 p-2">
+                      <Image
+                        src="/icons/docs.svg"
+                        alt="search"
+                        width={15}
+                        height={15}
+                      />
+                      {data.documents}
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="w-full text-wrap flex flex-col gap-2">
+                    {fileObject?.name ?
+                      <div className="flex items-center gap-2 border border-solid border-green-200 cursor-pointer bg-green-100 p-2">
+                        <AiTwotoneFilePdf size={24} />
+
+                        <div className=" leading-4">
+                          <p className=" font-extrabold">{fileObject?.name}</p>
+                          <div className="flex gap-1">
+                            <p>{fileObject?.sizeInMb}</p> -
+                            <p className=" text-gray-500">{fileObject?.lastModifiedFormatted}</p>
+                          </div>
+                        </div>
+                      </div>
+                      :
+                      <div className="flex items-center gap-2 border border-solid text-red-500 cursor-pointer  p-2">
+                        <MdSmsFailed /> No Document is uploaded !!
+                      </div>
+                    }
+
+
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <div className="flex gap-2 border border-solid border-dark-100 cursor-pointer hover:bg-dark-100 p-2">
                 <Image
                   src="/icons/urls.svg"
@@ -117,6 +183,9 @@ const LeftSidebar = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+
+
       </div>
       <SignedIn>
         <div className="flex  flex-col gap-4 ">

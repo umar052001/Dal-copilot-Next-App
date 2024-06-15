@@ -25,6 +25,10 @@ export const SidebarProvider: React.FC<{ children: ReactNode }> = ({ children })
     const toggleRightSidebar = () => {
         setIsRightSidebarOpen(!isRightSidebarOpen);
     };
+
+
+
+    
     return (
         <SidebarContext.Provider
             value={{

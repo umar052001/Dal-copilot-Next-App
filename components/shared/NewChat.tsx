@@ -9,11 +9,14 @@ import Image from "next/image";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { useToast } from "../ui/use-toast";
-
+import { useAtom } from 'jotai'
+import { todoAtom, SidebarAtom } from '@/context/atom'
+import Typewriter from '@/components/ui/typewriter'
 const NewChat = () => {
   const { language } = useLanguage();
   const [messages, setMessages] = useState<any>([
   ]);
+
   const [loading, setLoading] = useState<Boolean>(false);
   const data = determineDictionary(language);
   const suggestions = [
@@ -22,6 +25,7 @@ const NewChat = () => {
     data["how_to_purify_water_in_the_wild"],
     data["whats_the_meaning_of_al_dente?"],
   ];
+
   const {
     isLeftSidebarOpen,
     isRightSidebarOpen,
@@ -42,11 +46,21 @@ const NewChat = () => {
       });
     }
   };
+  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+
+  const handleClickincrement: React.MouseEventHandler<HTMLLabelElement> = () => {
+    // setIsLeftSidebarOpen(!LeftSidebarOpen)
+
+  };
+
   return (
 
     <main >
-      <div className="px-3 py-3    lg:flex-center flex-between ">
-        <label className="hamburger lg:hidden bg-slate-100 border rounded-full p-3 " onClick={toggleLeftSidebar}>
+
+
+      <div className="px-3 py-3 lg:flex-center flex-between ">
+
+        <label className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 " onClick={handleClickincrement}>
           <input type="checkbox" />
           <svg viewBox="0 0 32 32">
             <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
@@ -54,6 +68,10 @@ const NewChat = () => {
           </svg>
         </label>
         <div>
+
+
+
+
           <p className="text-center text-gray-500 lg:mt-3   select-none ">
             <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full ">
               <span>
@@ -92,7 +110,7 @@ const NewChat = () => {
         </div>
       </div>
 
-      <div className=" lg:hidden  flex-center mt-10">
+      {/* <div className=" lg:hidden  flex-center mt-10">
 
         <Image
           src="/LogoMark&Type.svg"
@@ -101,27 +119,32 @@ const NewChat = () => {
           width={128}
           height={56}
         />
-      </div>
+      </div> */}
 
 
 
 
-      <div className="md:px-10 px-5  pt-20 pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center lg:mt-32">
+      <div className="md:px-10 px-5  lg:pt-36    pb-4 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold h1-bold ">{data.where_knowledge_begins}</h1>
+          <h1 className=" text-center font-extrabold h1-bold mt-10">{data.where_knowledge_begins}</h1>
         )}
         <div className={`w-full flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {
             (messages.length > 0 || loading) &&
             <ScrollArea className="flex flex-col w-full h-[65vh] ">
+
+              {/* <Typewriter text="Hello, this is a typewriter effect!" /> */}
+
               {messages.map((message: any) => {
                 return (
-                  <div key={message.question} className="w-full flex flex-col ">
-                    <p className="bg-dark-300 w-fit max-w-full  px-4 py-2 rounded-2xl text-wrap my-2">
+                  <div key={message.question} className="w-full flex flex-col  ">
+                    <p className="bg-dark-400 self-end text-white w-fit max-w-full  px-4 py-2 rounded-3xl text-wrap my-2">
                       {message.question}
+
                     </p>
-                    <p className="self-end bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-2xl text-wrap my-2">
-                      {message.answer}
+                    <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-2xl text-wrap my-2">
+                      {/* {message.answer} */}
+                      <Typewriter text={message.answer} />
                     </p>
                   </div>
                 );
@@ -129,8 +152,8 @@ const NewChat = () => {
               {
                 loading && (
                   <div className="w-full flex flex-col">
-                    <Skeleton className="bg-dark-300 w-[200px] h-8 rounded-2xl my-2" />
-                    <Skeleton className="bg-dark-100 w-[200px] h-8 rounded-2xl my-2 self-end" />
+                    <Skeleton className="bg-dark-300 w-[200px] h-8 rounded-2xl my-2 self-end" />
+                    <Skeleton className="bg-dark-100 w-[300px] h-8 rounded-2xl my-2 " />
                   </div>
                 )
               }
