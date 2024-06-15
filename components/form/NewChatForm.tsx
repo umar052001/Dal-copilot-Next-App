@@ -19,8 +19,9 @@ import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileObjectAtom } from '@/context/atom'
+import { fileObjectAtom, fileArrayAtom } from '@/context/atom'
 import messege from "@/data/messege.json";
+
 
 
 const formSchema = z.object({
@@ -36,12 +37,10 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
   const { language } = useLanguage();
   const { toast } = useToast();
   const [isFileUploading, setIsFileUploading] = useState<Boolean>(false);
-  // const [fileObject, setFileObject] = useState<{ name: string, sizeInMb: string, lastModifiedFormatted: string }>({
-  //   name: '',
-  //   sizeInMb: '',
-  //   lastModifiedFormatted: ''
-  // });
+
   const [fileObject, setFileObject] = useAtom(fileObjectAtom);
+  const [fileArray, setFileArray] = useAtom(fileArrayAtom);
+
 
   const data = determineDictionary(language);
 
@@ -132,24 +131,25 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
       const file = e.target.files[0];
 
       if (file?.type === 'application/pdf') {
-        const fileSizeInMB = (file?.size / (1024 * 1024)).toFixed(2);
 
-        // Format the last modified date
-        // const formattedDate = file?.lastModifiedDate.toLocaleDateString('en-GB', {
-        //   day: '2-digit',
-        //   month: 'long',
-        //   year: 'numeric',
-        // });
+
         const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
         const sizeInMb = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
         const lastModifiedDate = new Date(file.lastModified);
         const lastModifiedFormatted = `${lastModifiedDate.getDate()} ${lastModifiedDate.toLocaleString('default', { month: 'long' })}, ${lastModifiedDate.getFullYear()}`;
-
+        const newFileObject = {
+          name: fileNameWithoutExtension,
+          sizeInMb: sizeInMb,
+          lastModifiedFormatted: lastModifiedFormatted
+        };
         setFileObject({
           name: fileNameWithoutExtension,
           sizeInMb: sizeInMb,
           lastModifiedFormatted: lastModifiedFormatted
         });
+       
+        setFileArray((prevFileArray) => [...prevFileArray, newFileObject]);
+        
         setPDFupload(true);
         setIsFileUploading(true);
         const formData = new FormData();

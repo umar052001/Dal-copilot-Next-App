@@ -12,11 +12,11 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
     useEffect(() => {
         let currentIndex = 0;
         const intervalId = setInterval(() => {
-            setDisplayedText((prev) => prev + text[currentIndex]);
-            currentIndex += 1;
-            if (currentIndex === text.length) {
+            if (currentIndex < text.length) {
+                setDisplayedText((prev) => prev + text[currentIndex]);
+                currentIndex += 1;
+            } else {
                 clearInterval(intervalId);
-                setCursorVisible(false); // Hide the cursor when text is fully typed
             }
         }, speed);
 
@@ -33,10 +33,8 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
     return (
         <span className="whitespace-pre-line">
             {displayedText}
-            {isCursorVisible === !true && <span className={`inline-block w-2 h-2 rounded-full ml-1 bg-black opacity-80 `}></span>}
-            
-
-            {/* <span className={`inline-block ml-1  bg-black ${isCursorVisible ? 'opacity-100' : 'opacity-0'}`}>|</span> */}
+            {/* <span className={`inline-block w-2 h-2 rounded-full ml-1 bg-black opacity-80 `}></span> */}
+            {/* <span className={`inline-block ml-1 bg-black ${isCursorVisible ? 'opacity-100' : 'opacity-0'}`}>|</span> */}
         </span>
     );
 };
