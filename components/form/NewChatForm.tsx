@@ -188,7 +188,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex lg:gap-4 gap-3 w-full flex-col border  border-dark-200 p-2  border-solid"
+        className="flex lg:gap-4 gap-3 w-full flex-col border rounded-lg  border-dark-200 p-2  border-solid"
       >
         <FormField
           control={form.control}
