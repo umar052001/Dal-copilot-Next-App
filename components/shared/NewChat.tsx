@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useInsertionEffect } from "react";
 import NewChatForm from "../form/NewChatForm";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
@@ -68,6 +68,11 @@ const NewChat = () => {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages, loading]);
+
+
+
+
+
 
   return (
 
@@ -143,20 +148,20 @@ const NewChat = () => {
         {(messages.length === 0 && !loading) && (
           <h1 className=" text-center font-extrabold h1-bold mt-24">{data.where_knowledge_begins}</h1>
         )}
-        <div className={`w-full flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
+        <div className={`w-full py-5 flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full lg:h-[65vh] h-[70vh] overflow-y-auto" ref={chatContainerRef}>
+            <ScrollArea className="flex flex-col w-full lg:h-[65vh] h-[70vh]  " ref={chatContainerRef}>
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  ">
-                    <p className="bg-dark-500  self-end text-white w-fit max-w-full  px-4 py-2 rounded-xl text-wrap my-2">
+                    <p className="bg-dark-500  self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-2">
                       {message.question}
 
                     </p>
-                    <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-xl text-wrap my-2">
+                    <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap my-2">
                       {/* {message.answer} */}
-                      <Typewriter text={message.answer} />
+                      <Typewriter text={message.answer}  />
                       {/* <Markdown>{message.answer}</Markdown> */}
                     </p>
                   </div>
