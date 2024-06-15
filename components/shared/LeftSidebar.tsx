@@ -16,10 +16,9 @@ import { Label } from "../ui/label";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useAtom } from 'jotai'
-import { fileObjectAtom, fileArrayAtom, SidebarAtom } from '@/context/atom'
+import { fileObjectAtom, fileArrayAtom, SidebarAtom, SidebarLayoutAtom } from '@/context/atom'
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { MdSmsFailed } from "react-icons/md";
-import { HiMenuAlt4 } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
 
@@ -30,6 +29,7 @@ const LeftSidebar = () => {
   const [fileObject] = useAtom(fileObjectAtom);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
   const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+  const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsLeftSidebarOpen(!LeftSidebarOpen)
@@ -214,6 +214,7 @@ const LeftSidebar = () => {
               className="[&>span]:bg-primary-500 border-dark-200"
               onClick={() => {
                 setLanguage(language === "en" ? "ar" : "en");
+                setIsSidebarLayout(!SidebarLayout)
               }}
             />
 

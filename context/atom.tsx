@@ -11,6 +11,8 @@ type FileObject = {
 export const todoAtom = atom(0);
 export const SidebarAtom = atom(false);
 export const RightSidebarAtom = atom(false);
+export const SidebarLayoutAtom = atom(false);
+
 
 // Define a file object atom with the required structure
 export const fileObjectAtom = atom<FileObject>({
