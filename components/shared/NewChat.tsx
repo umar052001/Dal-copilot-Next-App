@@ -85,7 +85,7 @@ const NewChat = () => {
 
 
 
-      <div className="px-6 py-5  lg:flex-center flex-between ">
+      <div className="p-6   lg:flex-center flex-between ">
 
         {/*<div className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 flex-center">
            <label >
@@ -97,7 +97,7 @@ const NewChat = () => {
           </label>
         </div> */}
         <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
-          <HiMenuAlt4 size={30} stroke-width={0.1} />
+          <HiMenuAlt4 size={20} stroke-width={0.1} />
         </div>
 
         <div>
@@ -126,7 +126,7 @@ const NewChat = () => {
           </p>
         </div>
         <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickRightSidebar}>
-          <RiFileHistoryLine size={30} />
+          <RiFileHistoryLine size={20} />
         </div>
       </div>
 

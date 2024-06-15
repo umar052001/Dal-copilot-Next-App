@@ -44,8 +44,8 @@ const LeftSidebar = () => {
 
         
         <div className=" flex   justify-between items-start  w-full  gap-7">
-          <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
-            <RxCross2 size={30} stroke-width={0.3} />
+          <div className="lg:hidden  border rounded-full p-2" onClick={handleClickleftSidebar}>
+            <RxCross2 size={20} stroke-width={0.2} />
           </div>
           <Image
             src="/LogoMark&Type.svg"
