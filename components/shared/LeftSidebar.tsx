@@ -113,22 +113,6 @@ const LeftSidebar = () => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="w-full text-wrap flex flex-col gap-2">
-                    {/* {fileObject?.name ?
-                      <div className="flex items-center gap-2 border border-solid border-green-200 cursor-pointer bg-green-100 p-2">
-                        <AiTwotoneFilePdf size={24} />
-                        <div className=" leading-4">
-                          <p className=" font-extrabold">{fileObject?.name}</p>
-                          <div className="flex gap-1">
-                            <p>{fileObject?.sizeInMb}</p> -
-                            <p className=" text-gray-500">{fileObject?.lastModifiedFormatted}</p>
-                          </div>
-                        </div>
-                      </div>
-                      :
-                      <div className="flex items-center gap-2  text-red-500 cursor-pointer  p-2">
-                        <MdSmsFailed /> No Document is uploaded !!
-                      </div>
-                    } */}
                     {fileArray?.length !== 0 ? (
                       fileArray.map((fileObject, index) => (
                         <div key={index} className="flex-center select-none text-xs gap-2 bg-green-100 border border-green-200 px-2 py-1 rounded-md">
