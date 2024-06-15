@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 interface TypewriterProps {
     text: string;
     speed?: number;
-    isCursorVisible: boolean;
 }
 
 const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
@@ -29,7 +28,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
     return (
         <span className="whitespace-pre-line">
             {displayedText}
-            {isCursorVisible && <span className={`inline-block w-2 h-2 rounded-full ml-1 bg-black opacity-75 `}></span>} 
+            {isCursorVisible && <span className={`inline-block w-2 h-2 rounded-full ml-1 bg-black opacity-75 `}></span>}
         </span>
     );
 };
