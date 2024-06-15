@@ -30,33 +30,34 @@ export default function HomeClient() {
     const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
     const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
+    const mobileclassses = 'col-span-6 fixed w-full z-10 overflow-y-scroll';
+    const Desktopclassses = 'lg:col-span-1 col-span-0 lg:block hidden';
 
 
-    
 
     return (
         <main className="grid  grid-cols-6">
             {!SidebarLayout ? (
                 <>
-                    <div className={`${LeftSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1 col-span-0 lg:block hidden'}`}>
+                    <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
                         <LeftSidebar />
                     </div>
-                    <div className={`lg:col-span-4 col-span-6`}>
+                    <div className={`lg:col-span-4 col-span-6 `}>
                         <NewChat />
                     </div>
-                    <div className={`${RightSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1 col-span-0 lg:block hidden'}`}>
+                    <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>
                         <RightSideBar />
                     </div>
                 </>
             ) : (
                 <>
-                    <div className={`${RightSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1 col-span-0 lg:block hidden'}`}>
-                            <RightSideBar />
+                    <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>
+                        <RightSideBar />
                     </div>
                     <div className={`lg:col-span-4 col-span-6`}>
                         <NewChat />
                     </div>
-                    <div className={`${LeftSidebarOpen ? 'col-span-6 fixed w-full z-10 ' : 'lg:col-span-1 col-span-0 lg:block hidden'}`}>
+                    <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
                         <LeftSidebar />
                     </div>
                 </>

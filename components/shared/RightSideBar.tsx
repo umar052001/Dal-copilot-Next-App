@@ -20,9 +20,7 @@ const RightSideBar = () => {
 
   return (
     <div className={`lg:p-4 p-6 flex flex-col gap-4 bg-[#F3F3EE] min-h-screen ${language === "en" ? "order-3" : "order-1"}`}>
-
       <div className='flex justify-between items-center gap-4'>
-       
         <Button className='bg-dark-100 hover:bg-dark-200 flex-center gap-2 rounded-3xl w-full'>
           {data.Start_a_new_Chat}
           <Image src="/icons/plus.svg" alt="search" width={16} height={16} />
