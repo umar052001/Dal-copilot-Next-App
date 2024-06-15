@@ -9,6 +9,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [isCursorVisible, setCursorVisible] = useState(true);
 
+    
     useEffect(() => {
         let currentIndex = 0;
         const intervalId = setInterval(() => {

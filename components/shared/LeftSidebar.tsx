@@ -14,7 +14,7 @@ import { Label } from "../ui/label";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useAtom } from 'jotai'
-import { fileObjectAtom, fileArrayAtom } from '@/context/atom'
+import { fileObjectAtom, fileArrayAtom, SidebarAtom } from '@/context/atom'
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { MdSmsFailed } from "react-icons/md";
 const LeftSidebar = () => {
@@ -22,6 +22,8 @@ const LeftSidebar = () => {
   const data = determineDictionary(language);
   const [fileObject] = useAtom(fileObjectAtom);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
+  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+  console.log(LeftSidebarOpen)
 
   return (
     <div

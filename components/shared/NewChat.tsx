@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef, useInsertionEffect } from "react";
+import React, { useEffect, useState, useRef, useInsertionEffect, MouseEventHandler } from "react";
 import NewChatForm from "../form/NewChatForm";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
@@ -12,7 +12,6 @@ import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
 import { todoAtom, SidebarAtom } from '@/context/atom'
 import Typewriter from '@/components/ui/typeWriter'
-
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import Markdown from 'react-markdown'
 
@@ -53,9 +52,8 @@ const NewChat = () => {
   };
   const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
 
-  const handleClickincrement: React.MouseEventHandler<HTMLLabelElement> = () => {
-    // setIsLeftSidebarOpen(!LeftSidebarOpen)
-
+  const handleClickincrement: MouseEventHandler<HTMLDivElement> =() => {
+    setIsLeftSidebarOpen(!LeftSidebarOpen)
   };
 
 
@@ -73,25 +71,27 @@ const NewChat = () => {
 
 
 
-
   return (
 
     <main >
 
 
+
       <div className="px-3 py-3 lg:flex-center flex-between ">
-        <label className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 " onClick={handleClickincrement}>
-          <input type="checkbox" />
-          <svg viewBox="0 0 32 32">
-            <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-            <path className="line" d="M7 16 27 16"></path>
-          </svg>
-        </label>
+
+        <div className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 flex-center" onClick={(() => setIsLeftSidebarOpen(!LeftSidebarOpen))}>
+          <label >
+            <input type="checkbox" />
+            <svg viewBox="0 0 32 32">
+              <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+              <path className="line" d="M7 16 27 16"></path>
+            </svg>
+          </label>
+        </div>
+
+
+
         <div>
-
-
-
-
           <p className="text-center text-gray-500 lg:mt-3   select-none ">
             <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full ">
               <span>
@@ -106,15 +106,6 @@ const NewChat = () => {
                 </span>
               </span>
               <span>
-                {/* <span
-                  className={`cursor-pointer  px-2 py-[8px] ${isRegistering && PDFupload === true ? "text-gray-500"
-                    : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"
-                    }`}
-                  onClick={() => setIsRegistering(false)}
-                >
-                  Ask PDF
-                </span> */}
-
                 <span
                   className={`cursor-pointer px-2 py-[8px] ${isRegistering ? "text-gray-500" : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"}`}
                   onClick={handleClick}
@@ -129,19 +120,6 @@ const NewChat = () => {
           <RiFileHistoryLine size={30} />
         </div>
       </div>
-
-      {/* <div className=" lg:hidden  flex-center mt-10">
-
-        <Image
-          src="/LogoMark&Type.svg"
-          className="mb-4"
-          alt="search"
-          width={128}
-          height={56}
-        />
-      </div> */}
-
-
 
 
       <div className="md:px-10 px-5  lg:pt-16      flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
@@ -160,8 +138,8 @@ const NewChat = () => {
 
                     </p>
                     <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap my-2">
+                      <Typewriter text={message.answer} />
                       {/* {message.answer} */}
-                      <Typewriter text={message.answer}  />
                       {/* <Markdown>{message.answer}</Markdown> */}
                     </p>
                   </div>
