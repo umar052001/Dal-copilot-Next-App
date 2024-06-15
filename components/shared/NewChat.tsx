@@ -80,22 +80,8 @@ const NewChat = () => {
 
 
   return (
-
     <main >
-
-
-
       <div className="p-6   lg:flex-center flex-between ">
-
-        {/*<div className="hamburger lg:hidden bg-slate-100 border rounded-full p-2 flex-center">
-           <label >
-            <input type="checkbox" />
-            <svg viewBox="0 0 32 32">
-              <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-              <path className="line" d="M7 16 27 16"></path>
-            </svg>
-          </label>
-        </div> */}
         <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
           <HiMenuAlt4 size={20} stroke-width={0.1} />
         </div>
@@ -105,10 +91,7 @@ const NewChat = () => {
             <span className="font-extrabold  gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full ">
               <span>
                 <span
-                  className={` cursor-pointer  px-2 py-[8px] ${isRegistering
-                    ? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"
-                    : "text-gray-500"
-                    }`}
+                  className={` cursor-pointer  px-2 py-[8px] ${isRegistering? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]": "text-gray-500"}`}
                   onClick={() => setIsRegistering(true)}
                 >
                   Chat with AI
@@ -133,7 +116,7 @@ const NewChat = () => {
 
       <div className="md:px-10 px-5  lg:pt-16      flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold h1-bold mt-24">{data.where_knowledge_begins}</h1>
+          <h1 className=" text-center font-extrabold h1-bold mt-[3.6rem]">{data.where_knowledge_begins}</h1>
         )}
         <div className={`w-full py-5 flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {

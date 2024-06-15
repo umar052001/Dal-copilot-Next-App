@@ -30,7 +30,7 @@ export default function HomeClient() {
     const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
     const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
-    const mobileclassses = 'col-span-6 fixed w-full z-10 overflow-y-scroll';
+    const mobileclassses = 'col-span-6 absolute w-full   z-10  ';
     const Desktopclassses = 'lg:col-span-1 col-span-0 lg:block hidden';
 
 
