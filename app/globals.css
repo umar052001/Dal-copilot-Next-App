@@ -24,7 +24,9 @@ body {
 
   /* font-family: "Inter", sans-serif; */
 }
-
+.arabicfont{
+  font-family: "Alexandria", sans-serif;
+}
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
