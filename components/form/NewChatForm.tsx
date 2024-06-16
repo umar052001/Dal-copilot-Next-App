@@ -21,7 +21,9 @@ import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
 import { fileObjectAtom, fileArrayAtom } from '@/context/atom'
 import messege from "@/data/messege.json";
+import { MdFilterList } from "react-icons/md";
 
+import { Tooltip, Button } from "@material-tailwind/react";
 
 
 const formSchema = z.object({
@@ -147,9 +149,9 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
           sizeInMb: sizeInMb,
           lastModifiedFormatted: lastModifiedFormatted
         });
-       
+
         setFileArray((prevFileArray) => [...prevFileArray, newFileObject]);
-        
+
         setPDFupload(true);
         setIsFileUploading(true);
         const formData = new FormData();
@@ -188,7 +190,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex lg:gap-4 gap-3 w-full flex-col border rounded-lg  border-dark-200 p-2  border-solid"
+        className="flex lg:gap-4 gap-3 w-full flex-col border rounded-lg  border-dark-200 p-3  border-solid"
       >
         <FormField
           control={form.control}
@@ -216,32 +218,32 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
               className="file-input__input"
               id="file-input"
             />
-            <div className=" flex-center">
+            <div className="flex-center gap-2  ">
 
+              <Tooltip  content="Set a focus for your source">
+                <label
+                  className="file-input__label   px-2 py-1  flex-center gap-2 !text-dark-400   font-light  rounded-full hover:gray transition-all ease-in-out hover:bg-[#E8E8E3]"
+                >
+                  <MdFilterList size={16}/>
+                  Focus
+                </label>
+              </Tooltip>
 
-              <label
-                className="file-input__label flex gap-2 !text-dark-300 font-light"
-              >
-                <Image
-                  src="/icons/focus.svg"
-                  alt="search"
-                  width={14}
-                  height={14}
-                />
-                Focus
-              </label>
-              <label
-                className="file-input__label flex gap-2 !text-dark-400 font-light"
-                htmlFor="file-input"
-              >
-                <Image
-                  src="/icons/attach.svg"
-                  alt="search"
-                  width={14}
-                  height={14}
-                />
-                Attach
-              </label>
+              <Tooltip content="Upload PDF">
+                <label
+                  className="file-input__label flex gap-2 px-2 py-1 !text-dark-400 font-light  rounded-full transition-all ease-in-out hover:bg-[#E8E8E3] "
+                  htmlFor="file-input"
+                >
+                  <Image
+                    src="/icons/attach.svg"
+                    alt="search"
+                    width={14}
+                    height={14}
+                  />
+                  Attach
+                </label>
+              </Tooltip>
+
 
             </div>
           </div>
@@ -284,14 +286,14 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
         </div>
         <section>
           {
-            fileObject?.name && <div className=" flex-center select-none text-xs gap-2 bg-green-100 border border-green-200 px-2 py-1  rounded-md">
+            fileArray.slice(-1)[0]?.name && <div className=" flex-center select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1  rounded-md">
               <AiTwotoneFilePdf size={24} />
 
               <div className=" leading-4">
-                <p className=" font-extrabold">{fileObject?.name}</p>
+                <p className=" font-extrabold">{fileArray.slice(-1)[0]?.name}</p>
                 <div className="flex gap-1">
-                  <p>{fileObject?.sizeInMb}</p> -
-                  <p className=" text-gray-500">{fileObject?.lastModifiedFormatted}</p>
+                  <p>{fileArray.slice(-1)[0]?.sizeInMb}</p> -
+                  <p className=" text-gray-500">{fileArray.slice(-1)[0]?.lastModifiedFormatted}</p>
                 </div>
               </div>
             </div>

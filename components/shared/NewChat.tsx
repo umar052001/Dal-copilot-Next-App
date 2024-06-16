@@ -81,6 +81,8 @@ const NewChat = () => {
 
   return (
     <main >
+      
+
       <div className="p-6   lg:flex-center flex-between ">
         <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
           <HiMenuAlt4 size={20} stroke-width={0.1} />

@@ -34,7 +34,7 @@ export default function SignInPage() {
           <Clerk.GlobalError className="block text-sm text-red-400" />
           <div className="space-y-4">
             <Clerk.Field name="identifier" className="space-y-2">
-              <Clerk.Label className="text-sm font-medium text-zinc-950">Username</Clerk.Label>
+              <Clerk.Label className="text-sm font-medium text-zinc-950">Username or Email</Clerk.Label>
               <Clerk.Input
                 type="text"
                 required

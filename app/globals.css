@@ -1,9 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
 @import url("../styles/theme.css");
-
 @font-face {
   font-family: "Circular-Std";
   src: url(../styles/fonts/FontsFree-Net-Circular-Std-Book.ttf);
@@ -12,7 +8,11 @@
   font-family: "Bricolage Grotesque";
   src: url(../styles/fonts/BricolageGrotesque_24pt-Regular.ttf);
 }
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 body {
   margin: 0;
@@ -190,14 +190,21 @@ code {
   position: absolute;
   z-index: -1;
 }
+.gray{
+  background-color: #E8E8E3;
+}
+.gray-hover{
+  background-color: #e0e0db;
+}
+
 
 .file-input__label {
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  /* color: #fff; */
   font-size: 14px;
-  padding: 10px 12px;
+  /* padding: 10px 12px; */
 }
 
 
