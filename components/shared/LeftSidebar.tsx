@@ -23,6 +23,7 @@ import { RxCross2 } from "react-icons/rx";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TbLogout } from "react-icons/tb";
 import { FaTimes } from 'react-icons/fa';
+import { MdOutlineErrorOutline } from "react-icons/md";
 
 
 
@@ -89,7 +90,7 @@ const LeftSidebar = () => {
           <Accordion
             type="single"
             collapsible
-            className="w-full body-regular  "
+            className="w-full body-regular overflow-x-hidden "
           >
             <AccordionItem value="item-1">
               <AccordionTrigger className=" no-underline  py-0 pb-4 ">
@@ -122,34 +123,35 @@ const LeftSidebar = () => {
                         {data.documents}
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="w-full text-wrap flex flex-col gap-2">
+                    <AccordionContent className="w-full  text-wrap flex flex-col gap-2 ">
                       {fileArray?.length !== 0 ? (
                         reversedFiles.slice(0, 3).map((fileObject, index) => {
                           const originalIndex = fileArray.length - 1 - index;
                           return (
-                            <div
-                              key={originalIndex}
-                              className="flex items-center justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
+                            <div key={originalIndex}
+                              className=" flex  relative items-center   justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
                             >
                               <div className="flex items-center gap-2">
                                 <AiTwotoneFilePdf size={24} />
                                 <div className="leading-4">
-                                  <p className="font-extrabold">{fileObject.name}</p>
+                                  <p className="font-extrabold  line-clamp-1 w-10/12">{fileObject.name}</p>
                                   <div className="flex gap-1">
                                     <p>{fileObject.sizeInMb}</p> -
                                     <p className="text-gray-500">{fileObject.lastModifiedFormatted}</p>
                                   </div>
                                 </div>
                               </div>
-                              <button onClick={() => handleDelete(originalIndex)} className="text-red-500">
-                                <FaTimes size={16} />
-                              </button>
+                              <div className="border  transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full " onClick={() => handleDelete(originalIndex)}>
+                                <RxCross2 size={10} stroke-width={0.3} />
+                              </div>
+
                             </div>
                           );
                         })
                       ) : (
-                        <div className="flex items-center gap-2 leading-4 text-red-500 cursor-pointer p-2">
-                          <MdSmsFailed /> No Document is uploaded !!
+                        <div className=' flex-center  gap-1  border  p-2 rounded-md   '>
+                          <p className="  text-red-400  font-bold">Upload PDF </p>
+                          <MdOutlineErrorOutline size={20} className=' opacity-50' color="red" />
                         </div>
                       )}
 

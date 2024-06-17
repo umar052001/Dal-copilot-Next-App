@@ -48,7 +48,7 @@ const NewChat = () => {
       toast({
         title: "Instruction",
         description: "Please Attach PDF File First !!",
-        variant: "primary",
+        variant: "destructive",
       });
     }
   };

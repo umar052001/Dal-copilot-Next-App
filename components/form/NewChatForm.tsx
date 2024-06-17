@@ -24,6 +24,7 @@ import messege from "@/data/messege.json";
 import { MdFilterList } from "react-icons/md";
 
 import { Tooltip, Button } from "@material-tailwind/react";
+import { RxCross2 } from "react-icons/rx";
 
 
 const formSchema = z.object({
@@ -144,32 +145,38 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
           sizeInMb: sizeInMb,
           lastModifiedFormatted: lastModifiedFormatted
         };
-        setFileObject({
-          name: fileNameWithoutExtension,
-          sizeInMb: sizeInMb,
-          lastModifiedFormatted: lastModifiedFormatted
-        });
+        const fileNameExists = fileArray.some(file => file.name === newFileObject.name);
 
-        setFileArray((prevFileArray) => [...prevFileArray, newFileObject]);
-
-        setPDFupload(true);
-        setIsFileUploading(true);
-        const formData = new FormData();
-        fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
-          method: "POST",
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setIsFileUploading(false);
-            toast({
-              title: "File",
-              description: "File Uploaded Successfully!",
-              variant: "primary",
-            });
-            console.log(data);
+        if (fileNameExists) {
+          toast({
+            title: "Caution",
+            description: "PDF File Already Exists !!",
+            variant: "destructive",
+          });
+        } else {
+          setFileArray((prevFileArray) => [...prevFileArray, newFileObject]);
+          setShowpdf(true);
+          setPDFupload(true);
+          setIsFileUploading(true);
+          const formData = new FormData();
+          fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
+            method: "POST",
+            body: formData,
           })
-          .catch((error) => console.error(error));
+            .then((response) => response.json())
+            .then((data) => {
+              setIsFileUploading(false);
+              toast({
+                title: "File",
+                description: "File Uploaded Successfully!",
+                variant: "primary",
+              });
+              console.log(data);
+            })
+            .catch((error) => console.error(error));
+        }
+        
+        
 
 
       } else {
@@ -184,8 +191,14 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
 
     }
   };
+  const [Showpdf, setShowpdf] = useState<boolean>(true);
 
 
+
+  const handleDelete = (fileName: string) => {
+    setFileArray(fileArray.filter(file => file.name !== fileName));
+    setShowpdf(false)
+  };
   return (
     <Form {...form}>
       <form
@@ -220,11 +233,11 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
             />
             <div className="flex-center gap-2  ">
 
-              <Tooltip  content="Set a focus for your source">
+              <Tooltip content="Set a focus for your source">
                 <label
                   className="file-input__label   px-2 py-1  flex-center gap-2 !text-dark-400   font-light  rounded-full hover:gray transition-all ease-in-out hover:bg-[#E8E8E3]"
                 >
-                  <MdFilterList size={16}/>
+                  <MdFilterList size={16} />
                   Focus
                 </label>
               </Tooltip>
@@ -285,19 +298,22 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
 
         </div>
         <section>
-          {
-            fileArray.slice(-1)[0]?.name && <div className=" flex-center select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1  rounded-md">
-              <AiTwotoneFilePdf size={24} />
-
-              <div className=" leading-4">
-                <p className=" font-extrabold">{fileArray.slice(-1)[0]?.name}</p>
-                <div className="flex gap-1">
-                  <p>{fileArray.slice(-1)[0]?.sizeInMb}</p> -
-                  <p className=" text-gray-500">{fileArray.slice(-1)[0]?.lastModifiedFormatted}</p>
+          {Showpdf &&
+            fileArray.slice(-1)[0]?.name && (
+              <div className="flex-center relative select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md ">
+                <AiTwotoneFilePdf size={24} />
+                <div className="leading-4">
+                  <p className="font-extrabold">{fileArray.slice(-1)[0]?.name}</p>
+                  <div className="flex gap-1">
+                    <p>{fileArray.slice(-1)[0]?.sizeInMb}</p> -
+                    <p className="text-gray-500">{fileArray.slice(-1)[0]?.lastModifiedFormatted}</p>
+                  </div>
+                </div>
+                <div onClick={() => handleDelete(fileArray.slice(-1)[0]?.name)} className="border  transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full ">
+                  <RxCross2 size={10} stroke-width={0.3} />
                 </div>
               </div>
-            </div>
-          }
+            )}
         </section>
       </form>
     </Form>
