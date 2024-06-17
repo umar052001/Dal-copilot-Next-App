@@ -22,7 +22,7 @@ export default function SignInPage() {
 
             <h1 className="mt-4 text-2xl tracking-tight text-zinc-950 font-bold">Login to your account</h1>
             <h1 className="mt-3 text-sm tracking-tight text-zinc-950 ">Please create an account to test the application</h1>
-            <p className='arabicsfont'>الرجاء خلق حساب لتجربة الخدمة</p>
+            <p className='arabic-font'>الرجاء خلق حساب لتجربة الخدمة</p>
             <h1 className="mt-3 text-sm tracking-tight text-zinc-950">
               <b>Note:</b> Our server, powered by a high-cost GPU, operates on-demand for efficiency. Please email{' '}
               <a href="mailto:saltamimi@modernint.sato" className="text-[#00d9dd]  ">

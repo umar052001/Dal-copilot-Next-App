@@ -99,7 +99,7 @@ const NewChat = () => {
 
         <div >
           <p className="text-center  text-gray-500 lg:mt-3   select-none ">
-            <span className={`font-extrabold ${SidebarLayout && 'english-font'}    gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full `}>
+            <span className={`font-extrabold    gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full `}>
                 <span
                   className={` cursor-pointer  px-2 py-[8px] ${isRegistering? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]": "text-gray-500"}`}
                   onClick={() => setIsRegistering(true)}
