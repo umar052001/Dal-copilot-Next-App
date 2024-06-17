@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body  >
+      <body className="overflow-y-hidden" >
         <ClerkProvider>
           <LanguageProvider>
             <SidebarProvider>

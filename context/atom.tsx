@@ -20,5 +20,6 @@ export const SidebarLayoutAtom = atom(false);
 export const PDFuploadAtom = atom(false);
 export const ShowPDFAtom = atom(true);
 export const ChangeToggleAtom = atom(true);
+export const SliderOpenAtom = atom(true);
 export const fileArrayAtom = atom<FileObject[]>([]);
 export const MessagesAtom = atom<Message[]>([]);
