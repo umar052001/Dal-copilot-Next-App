@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/languageContext'
 import { determineDictionary } from '@/lib/determineDictionaries'
 import { GoHome } from "react-icons/go";
 import { useAtom } from 'jotai'
-import { RightSidebarAtom, SidebarLayoutAtom } from '@/context/atom'
+import { RightSidebarAtom, SidebarLayoutAtom, MessagesAtom } from '@/context/atom'
 import { RiHistoryFill } from "react-icons/ri";
 
 const RightSideBar = () => {
@@ -14,15 +14,21 @@ const RightSideBar = () => {
   const data = determineDictionary(language);
   const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
   const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
+  const [messages, setMessages] = useAtom(MessagesAtom);
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsRightSidebarOpen(!RightSidebarOpen)
   };
 
+  const StartnewChat: MouseEventHandler<HTMLButtonElement> = () => {
+    setMessages([]);
+
+  };
+
   return (
     <div className={`${SidebarLayout && 'arabic-font'} lg:p-4 p-6 flex flex-col gap-4 bg-[#F3F3EE]  min-h-screen ${language === "en" ? "order-3" : "order-1"}`}>
       <div className='flex justify-between items-center gap-4'>
-        <Button className='bg-dark-100 hover:bg-dark-200 flex-center gap-2 rounded-3xl w-full'>
+        <Button onClick={StartnewChat} className='bg-dark-100 hover:bg-dark-200 flex-center gap-2 rounded-3xl w-full'>
           {data.Start_a_new_Chat}
           <Image src="/icons/plus.svg" alt="search" width={16} height={16} />
         </Button>

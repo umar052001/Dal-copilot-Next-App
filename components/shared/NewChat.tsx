@@ -9,7 +9,7 @@ import Image from "next/image";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
-import { LeftSidebarAtom, RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/atom'
+import { LeftSidebarAtom, MessagesAtom, ChangeToggleAtom,  RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/atom'
 import Typewriter from '@/components/ui/typeWriter'
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import Markdown from 'react-markdown'
@@ -25,12 +25,11 @@ const NewChat = () => {
   const [checkPDFUpload, setcheckPDFUpload] = useAtom(PDFuploadAtom);
   const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(LeftSidebarAtom);
   const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
+  const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
   const [SidebarLayout] = useAtom(SidebarLayoutAtom);
-  const [ChangeToggle, setChangeToggle] = useState(true);
   const [loading, setLoading] = useState<Boolean>(false);
-  const [messages, setMessages] = useState<any>([]);
-
+  const [messages, setMessages] = useAtom(MessagesAtom);
 
   const suggestions = [
     data["how_many_stars_are_in_the_milky_Way?"],
@@ -141,7 +140,7 @@ const NewChat = () => {
               }
             </ScrollArea>
           }
-          <NewChatForm setChangeToggle={setChangeToggle} data={data} setLoading={setLoading} setMessages={setMessages} />
+          <NewChatForm  data={data} setLoading={setLoading}  />
         </div>
         {(messages.length === 0 && !loading) && (
           <div className={`flex gap-2 ${SidebarLayout && 'text-xs'}  md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>

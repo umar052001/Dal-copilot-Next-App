@@ -19,7 +19,7 @@ import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/atom'
+import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom, MessagesAtom } from '@/context/atom'
 import messege from "@/data/messege.json";
 import { MdFilterList } from "react-icons/md";
 
@@ -36,14 +36,16 @@ interface FileProps {
   lastModified: number;
   size: number;
 }
-const NewChatForm = ({ setMessages, setLoading, setChangeToggle }: any) => {
+const NewChatForm = ({  setLoading }: any) => {
   const { toast } = useToast();
   const { language } = useLanguage();
   const data = determineDictionary(language);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
   const [checkPDFUpload, setcheckPDFUpload] = useAtom(PDFuploadAtom);
   const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
+  const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   const [isFileUploading, setIsFileUploading] = useState<Boolean>(false);
+  const [messages, setMessages] = useAtom(MessagesAtom);
 
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,14 +58,6 @@ const NewChatForm = ({ setMessages, setLoading, setChangeToggle }: any) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (isFileUploading) {
-      toast({
-        title: "File",
-        description: "Wait for file to upload pls...",
-        variant: "primary",
-      });
-      return;
-    }
     const { prompt, pro } = values;
     form.reset();
     const fileInput = document.getElementById("file-input") as HTMLInputElement;
@@ -71,8 +65,25 @@ const NewChatForm = ({ setMessages, setLoading, setChangeToggle }: any) => {
       question: prompt,
       answer: messege.answer,
     };
-    setMessages((prevMessages: any) => [...prevMessages, newMessage]);
-    setLoading(false);
+    if (ChangeToggle === true) {
+      setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+      setLoading(false);
+    } else {
+      if (isFileUploading) {
+        toast({
+          title: "File",
+          description: "Wait for file to upload pls...",
+          variant: "primary",
+        });
+        return;
+      } else {
+        setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+        setLoading(false);
+      }
+    }
+
+   
+
 
 
     if (fileInput && fileInput?.files) {
@@ -125,7 +136,7 @@ const NewChatForm = ({ setMessages, setLoading, setChangeToggle }: any) => {
       const file = e.target.files[0];
 
       if (file?.type === 'application/pdf') {
-
+        setMessages([]);
 
         const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
         const sizeInMb = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
