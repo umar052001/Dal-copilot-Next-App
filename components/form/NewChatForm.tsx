@@ -234,7 +234,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
                   className="file-input__label   px-2 py-1  flex-center gap-2 !text-dark-400   font-light  rounded-full hover:gray transition-all ease-in-out hover:bg-[#E8E8E3]"
                 >
                   <MdFilterList size={16} />
-                  Focus
+                  {data.focus}
                 </label>
               </Tooltip>
 
@@ -249,7 +249,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
                     width={14}
                     height={14}
                   />
-                  Attach
+                  {data.attach}
                 </label>
               </Tooltip>
 
@@ -286,7 +286,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
                       aria-readonly
                     />
                   </FormControl>
-                  <FormLabel className="text-base">Pro</FormLabel>
+                  <FormLabel className="text-base">{data.pro}</FormLabel>
                 </FormItem>
               )}
             />

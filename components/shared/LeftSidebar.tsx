@@ -44,8 +44,12 @@ const LeftSidebar = () => {
   };
 
   const reversedFiles = fileArray.slice().reverse();
+
+
+
+
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"}  min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}  min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
       <div className="flex flex-col gap-5  items-center    ">
         <div className=" flex   justify-between items-start  w-full  ">
           <div className="lg:hidden  border rounded-full p-2" onClick={handleClickleftSidebar}>
@@ -129,7 +133,7 @@ const LeftSidebar = () => {
                           const originalIndex = fileArray.length - 1 - index;
                           return (
                             <div key={originalIndex}
-                              className=" flex  relative items-center   justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
+                              className=" flex  relative items-center justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
                             >
                               <div className="flex items-center gap-2">
                                 <AiTwotoneFilePdf size={24} />
@@ -149,8 +153,8 @@ const LeftSidebar = () => {
                           );
                         })
                       ) : (
-                        <div className=' flex-center  gap-1  border  p-2 rounded-md   '>
-                          <p className="  text-red-400  font-bold">Upload PDF </p>
+                          <div className=' flex-center  gap-1  border text-sm  p-2 rounded-md   '>
+                            <p className="  text-red-400   font-bold">{data.upload_pdf} </p>
                           <MdOutlineErrorOutline size={20} className=' opacity-50' color="red" />
                         </div>
                       )}
@@ -196,7 +200,7 @@ const LeftSidebar = () => {
       <SignedIn>
         <div className="flex  flex-col gap-4 pt-6">
           <div className="flex items-center gap-2 w-full">
-            <Label htmlFor="lang" className="cursor-pointer ">
+            <Label htmlFor="lang" className="cursor-pointer arabic-font">
               {data.arabic}
             </Label>
             <Switch
