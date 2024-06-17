@@ -30,7 +30,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 20 }) => {
     }, [text, speed]);
 
     return (
-        <span className="whitespace-pre-line">
+        <span className="whitespace-pre-line ">
             {displayedText}
             {isCursorVisible && <span className="inline-block w-2 h-2 rounded-full ml-1 bg-black opacity-75"></span>}
         </span>

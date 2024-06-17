@@ -19,7 +19,7 @@ import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileObjectAtom, fileArrayAtom } from '@/context/atom'
+import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/atom'
 import messege from "@/data/messege.json";
 import { MdFilterList } from "react-icons/md";
 
@@ -36,16 +36,15 @@ interface FileProps {
   lastModified: number;
   size: number;
 }
-const NewChatForm = ({ setMessages, setLoading }: any) => {
-  const { language } = useLanguage();
+const NewChatForm = ({ setMessages, setLoading, setChangeToggle }: any) => {
   const { toast } = useToast();
+  const { language } = useLanguage();
+  const data = determineDictionary(language);
+  const [fileArray, setFileArray] = useAtom(fileArrayAtom);
+  const [checkPDFUpload, setcheckPDFUpload] = useAtom(PDFuploadAtom);
+  const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
   const [isFileUploading, setIsFileUploading] = useState<Boolean>(false);
 
-  const [fileObject, setFileObject] = useAtom(fileObjectAtom);
-  const [fileArray, setFileArray] = useAtom(fileArrayAtom);
-
-
-  const data = determineDictionary(language);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -120,12 +119,8 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
     }
   }
 
-  const {
-    PDFupload, setPDFupload
-  } = useSidebar();
 
-
-  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDocumentUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
 
@@ -141,7 +136,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
           sizeInMb: sizeInMb,
           lastModifiedFormatted: lastModifiedFormatted
         };
-        const fileNameExists = fileArray.some(file => file.name === newFileObject.name);
+        const fileNameExists = fileArray.some(file => file.name === fileNameWithoutExtension);
 
         if (fileNameExists) {
           toast({
@@ -151,8 +146,12 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
           });
         } else {
           setFileArray((prevFileArray) => [...prevFileArray, newFileObject]);
+          setChangeToggle(false)
           setShowpdf(true);
-          setPDFupload(true);
+          setcheckPDFUpload(true);
+
+
+
           setIsFileUploading(true);
           const formData = new FormData();
           fetch(`${process.env.NEXT_PUBLIC_GEN_API}/upload`, {
@@ -171,12 +170,12 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
             })
             .catch((error) => console.error(error));
         }
-        
-        
+
+
 
 
       } else {
-        setPDFupload(false);
+        setcheckPDFUpload(false);
         toast({
           title: "File Error",
           description: "Only PDF files are allowed.",
@@ -187,13 +186,15 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
 
     }
   };
-  const [Showpdf, setShowpdf] = useState<boolean>(true);
 
 
 
   const handleDelete = (fileName: string) => {
     setFileArray(fileArray.filter(file => file.name !== fileName));
     setShowpdf(false)
+    setIsFileUploading(false);
+    setChangeToggle(true)
+    setcheckPDFUpload(false)
   };
   return (
     <Form {...form}>
@@ -223,7 +224,7 @@ const NewChatForm = ({ setMessages, setLoading }: any) => {
           <div className="flex-center">
             <input
               type="file"
-              onChange={(e) => handleImageUpload(e)}
+              onChange={(e) => handleDocumentUpload(e)}
               className="file-input__input"
               id="file-input"
             />

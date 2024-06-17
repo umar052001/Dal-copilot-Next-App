@@ -33,7 +33,7 @@ const RightSideBar = () => {
 
 
       <p className='text-dark-300 text-sm mt-1'>{data.Recent_Talks}</p>
-      <div className='   transition-all flex-center gap-2 text-sm rounded-md  cursor-pointer  hover:bg-dark-100 py-2 px-3 border '>
+      <div className='   transition-all flex-center gap-2 text-sm rounded-lg  cursor-pointer  hover:bg-dark-100 py-2 px-3 border '>
         <RiHistoryFill />
         <p className=' w-11/12 line-clamp-1  '>{data.Analyzing_Financial}</p>
       </div>

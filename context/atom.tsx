@@ -1,26 +1,19 @@
 import { atom } from "jotai";
 
-// Define the type for the file object
 type FileObject = {
     name: string;
     sizeInMb: string;
     lastModifiedFormatted: string;
 };
 
-// Define individual atoms for different states
-export const todoAtom = atom(0);
-export const SidebarAtom = atom(false);
+// export const fileObjectAtom = atom<FileObject>({
+//     name: '',
+//     sizeInMb: '',
+//     lastModifiedFormatted: ''
+// });
+export const LeftSidebarAtom = atom(false);
 export const RightSidebarAtom = atom(false);
 export const SidebarLayoutAtom = atom(false);
-
-
-// Define a file object atom with the required structure
-export const fileObjectAtom = atom<FileObject>({
-    name: '',
-    sizeInMb: '',
-    lastModifiedFormatted: ''
-});
-
-
-// Define an atom to store an array of file objects
+export const PDFuploadAtom = atom(false);
+export const ShowPDFAtom = atom(true);
 export const fileArrayAtom = atom<FileObject[]>([]);

@@ -2,36 +2,18 @@
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import NewChat from "@/components/shared/NewChat";
 import RightSideBar from "@/components/shared/RightSideBar";
-import { useSidebar } from '@/context/Sidebarcontext';
 import { useAtom } from 'jotai'
-import { todoAtom, SidebarAtom, RightSidebarAtom, SidebarLayoutAtom } from '@/context/atom'
+import {  LeftSidebarAtom, RightSidebarAtom, SidebarLayoutAtom } from '@/context/atom'
 
 export default function HomeClient() {
 
-    // const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
-    // const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
 
-    // const toggleLeftSidebar = () => {
-    //     setIsLeftSidebarOpen(!isLeftSidebarOpen);
-    // };
-
-    // const toggleRightSidebar = () => {
-    //     setIsRightSidebarOpen(!isRightSidebarOpen);
-    // };
-    // <div className={`fixed inset-y-0 left-0 z-50 lg:col-span-1 col-span-0 ${isLeftSidebarOpen ? 'block' : 'hidden'} md:block`} >
-    // const {
-    //     isLeftSidebarOpen,
-    //     isRightSidebarOpen,
-    //     toggleLeftSidebar,
-    //     toggleRightSidebar,
-    // } = useSidebar();
-
-    const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+    const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(LeftSidebarAtom);
     const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
     const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
-    const mobileclassses = 'col-span-6 absolute w-full   z-10  ';
-    const Desktopclassses = 'lg:col-span-1  col-span-0 lg:block hidden min-h-screen  bg-[#F3F3EE]';
+    const mobileclasses = 'col-span-6 absolute w-full   z-10  ';
+    const Desktopclasses = 'lg:col-span-1  col-span-0 lg:block hidden min-h-screen  bg-[#F3F3EE]';
 
 
 
@@ -39,25 +21,25 @@ export default function HomeClient() {
         <main className="grid  grid-cols-6">
             {!SidebarLayout ? (
                 <>
-                    <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
+                    <div className={`${LeftSidebarOpen ? mobileclasses : Desktopclasses}`}>
                         <LeftSidebar />
                     </div>
                     <div className={`lg:col-span-4  col-span-6   `}>
                         <NewChat />
                     </div>
-                    <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>
+                    <div className={`${RightSidebarOpen ? mobileclasses : Desktopclasses}`}>
                         <RightSideBar />
                     </div>
                 </>
             ) : (
                 <>
-                    <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>
+                    <div className={`${RightSidebarOpen ? mobileclasses : Desktopclasses}`}>
                         <RightSideBar />
                     </div>
                     <div className={`lg:col-span-4 col-span-6`}>
                         <NewChat />
                     </div>
-                    <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
+                    <div className={`${LeftSidebarOpen ? mobileclasses : Desktopclasses}`}>
                         <LeftSidebar />
                     </div>
                 </>

@@ -2,7 +2,6 @@
 import { SignedIn } from "@clerk/clerk-react";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
 import { MouseEventHandler } from "react";
-
 import Image from "next/image";
 import {
   Accordion,
@@ -16,23 +15,22 @@ import { Label } from "../ui/label";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useAtom } from 'jotai'
-import { fileObjectAtom, fileArrayAtom, SidebarAtom, SidebarLayoutAtom } from '@/context/atom'
+import { fileArrayAtom, SidebarLayoutAtom, LeftSidebarAtom } from '@/context/atom'
 import { AiTwotoneFilePdf } from "react-icons/ai";
-import { MdSmsFailed } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { TbLogout } from "react-icons/tb";
-import { FaTimes } from 'react-icons/fa';
 import { MdOutlineErrorOutline } from "react-icons/md";
+import { MdSmsFailed } from "react-icons/md";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { FaTimes } from 'react-icons/fa';
 
 
 
 const LeftSidebar = () => {
   const { language, setLanguage } = useLanguage();
   const data = determineDictionary(language);
-  const [fileObject] = useAtom(fileObjectAtom);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
-  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
+  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(LeftSidebarAtom);
   const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
