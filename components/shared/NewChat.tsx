@@ -77,7 +77,15 @@ const NewChat = () => {
 
 
 
+  const [showTypewriter, setShowTypewriter] = useState(false);
 
+  useEffect(() => {
+  
+    const timer = setTimeout(() => {
+      setShowTypewriter(true);
+    }, 6000); // 3 seconds delay
+    return () => clearTimeout(timer); // Clean up the timer on component unmount
+  }, []);
 
   return (
     <main >
@@ -116,14 +124,16 @@ const NewChat = () => {
       </div>
 
 
-      <div className="md:px-10 px-5  lg:pt-16      flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
+      <div className="md:px-10 px-5  lg:pt-6      flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold h1-bold mt-[2.6rem]">{data.where_knowledge_begins}</h1>
+          <h1 className={`text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[3.6rem] `}>
+            {data.where_knowledge_begins}
+          </h1>
         )}
-        <div className={`w-full py-2 flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
+        <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full lg:h-[65vh] h-[70vh]  " ref={chatContainerRef}>
+            <ScrollArea className="flex flex-col w-full  my-2  h-[65vh]  " ref={chatContainerRef}>
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  ">
@@ -131,11 +141,16 @@ const NewChat = () => {
                       {message.question}
 
                     </p>
-                    <p className=" bg-dark-100 w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap my-2">
-                      <Typewriter text={message.answer} />
-                      {/* {message.answer} */}
-                      {/* <Markdown>{message.answer}</Markdown> */}
-                    </p>
+                    {showTypewriter ? (
+                      <p className="bg-dark-100 w-fit max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap my-2">
+                        <Typewriter text={message.answer} />
+                        {/* {message.answer} */}
+                        {/* <Markdown>{message.answer}</Markdown> */}
+                      </p>
+                    ) : (
+                      <Skeleton className="bg-dark-100 w-[400px] h-8 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2" />
+                    )}
+
                   </div>
                 );
               })}
