@@ -19,19 +19,19 @@ export default function HomeClient() {
     //     setIsRightSidebarOpen(!isRightSidebarOpen);
     // };
     // <div className={`fixed inset-y-0 left-0 z-50 lg:col-span-1 col-span-0 ${isLeftSidebarOpen ? 'block' : 'hidden'} md:block`} >
-    const {
-        isLeftSidebarOpen,
-        isRightSidebarOpen,
-        toggleLeftSidebar,
-        toggleRightSidebar,
-    } = useSidebar();
+    // const {
+    //     isLeftSidebarOpen,
+    //     isRightSidebarOpen,
+    //     toggleLeftSidebar,
+    //     toggleRightSidebar,
+    // } = useSidebar();
 
     const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(SidebarAtom);
     const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
     const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
 
     const mobileclassses = 'col-span-6 absolute w-full   z-10  ';
-    const Desktopclassses = 'lg:col-span-1 col-span-0 lg:block hidden';
+    const Desktopclassses = 'lg:col-span-1  col-span-0 lg:block hidden min-h-screen  bg-[#F3F3EE]';
 
 
 
@@ -42,7 +42,7 @@ export default function HomeClient() {
                     <div className={`${LeftSidebarOpen ? mobileclassses : Desktopclassses}`}>
                         <LeftSidebar />
                     </div>
-                    <div className={`lg:col-span-4 col-span-6  `}>
+                    <div className={`lg:col-span-4  col-span-6  `}>
                         <NewChat />
                     </div>
                     <div className={`${RightSidebarOpen ? mobileclassses : Desktopclassses}`}>

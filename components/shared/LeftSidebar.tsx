@@ -45,7 +45,7 @@ const LeftSidebar = () => {
 
   const reversedFiles = fileArray.slice().reverse();
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"}  min-h-screen  bg-[#F3F3EE]  flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"}  min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
       <div className="flex flex-col gap-5  items-center    ">
         <div className=" flex   justify-between items-start  w-full  ">
           <div className="lg:hidden  border rounded-full p-2" onClick={handleClickleftSidebar}>

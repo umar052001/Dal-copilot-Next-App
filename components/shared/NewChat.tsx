@@ -118,9 +118,9 @@ const NewChat = () => {
 
       <div className="md:px-10 px-5  lg:pt-16      flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
         {(messages.length === 0 && !loading) && (
-          <h1 className=" text-center font-extrabold h1-bold mt-[3.6rem]">{data.where_knowledge_begins}</h1>
+          <h1 className=" text-center font-extrabold h1-bold mt-[2.6rem]">{data.where_knowledge_begins}</h1>
         )}
-        <div className={`w-full py-5 flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
+        <div className={`w-full py-2 flex flex-col ${(messages.length > 0 || loading) ? "justify-between h-full" : ""} `}>
           {
             (messages.length > 0 || loading) &&
             <ScrollArea className="flex flex-col w-full lg:h-[65vh] h-[70vh]  " ref={chatContainerRef}>
