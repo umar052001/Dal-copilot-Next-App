@@ -86,18 +86,19 @@ const NewChat = () => {
         <div >
           <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
             <span className={`font-extrabold  flex-center  gap-3   border px-[5px] pt-1 pb-[5px]  rounded-full `}>
-              
+              {/* <BsStars />
+              <AiOutlineFilePdf /> */}
               <span
                 className={` cursor-pointer flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]" : "text-gray-500"}`}
                 onClick={handleLeftToggle}
               >
-                <BsStars />  Chat With AI
+                  Chat With AI
               </span>
               <span
                 className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]"}`}
                 onClick={handleRightToggle}
               >
-                <AiOutlineFilePdf />  Ask PDF
+                 Ask PDF
 
               </span>
             </span>
