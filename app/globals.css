@@ -6,15 +6,15 @@
 } */
 @import url("../styles/theme.css");
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url(../styles/fonts/BricolageGrotesque_24pt-Regular.ttf);
+}
 
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-  font-family: "Bricolage Grotesque";
-  src: url(../styles/fonts/BricolageGrotesque_24pt-Regular.ttf);
-}
 
 
 body {
@@ -33,7 +33,7 @@ body {
   font-family: "Alexandria", sans-serif;
 }
 .english-font{
-    font-family: "Bricolage Grotesque";
+   font-family: "Bricolage Grotesque", sans-serif;
 
 }
 @layer utilities {
