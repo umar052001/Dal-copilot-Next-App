@@ -308,7 +308,7 @@ const NewChatForm = ({  setLoading }: any) => {
         <section>
           {Showpdf &&
             fileArray.slice(-1)[0]?.name && (
-              <div className="flex-center relative select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md ">
+            <div className="flex-center relative select-none text-xs gap-2 bg-[#F3F3EE] border border-[#E8E8E3] px-2 py-1 rounded-md ">
                 <AiTwotoneFilePdf size={24} />
                 <div className="leading-4">
                   <p className="font-extrabold">{fileArray.slice(-1)[0]?.name}</p>

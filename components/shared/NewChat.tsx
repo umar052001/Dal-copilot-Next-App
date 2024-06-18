@@ -15,7 +15,11 @@ import MarkdownPreview from "@uiw/react-markdown-preview";
 import Markdown from 'react-markdown'
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { HiMenuAlt4 } from "react-icons/hi";
+import { BsStars } from "react-icons/bs";
+import { FaRegFilePdf } from "react-icons/fa6";
+import { TiDocumentText } from "react-icons/ti";
 
+import { AiOutlineFilePdf } from "react-icons/ai";
 
 const NewChat = () => {
 
@@ -74,31 +78,32 @@ const NewChat = () => {
     <main className={`${SidebarLayout && 'arabic-font'}`} >
 
 
-      <div className="pt-6 px-6 pb-3 lg:flex-center flex-between ">
-        <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickleftSidebar}>
+      <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
+        <div className="lg:hidden bg-[#F3F3EE] border rounded-full p-2" onClick={handleClickleftSidebar}>
           <HiMenuAlt4 size={20} stroke-width={0.1} />
         </div>
 
         <div >
           <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
-            <span className={`font-extrabold    gap-5 bg-slate-100 border px-[5px] pt-[12px] pb-[13px] rounded-full `}>
+            <span className={`font-extrabold  flex-center  gap-3   border px-[5px] pt-1 pb-[5px]  rounded-full `}>
+              
               <span
-                className={` cursor-pointer  px-2 py-[8px] ${ChangeToggle ? "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]" : "text-gray-500"}`}
+                className={` cursor-pointer flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]" : "text-gray-500"}`}
                 onClick={handleLeftToggle}
               >
-                Chat With AI
+                <BsStars />  Chat With AI
               </span>
               <span
-                className={`cursor-pointer px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 bg-slate-200 md:border rounded-full px-2 py-[8px]"}`}
+                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]"}`}
                 onClick={handleRightToggle}
               >
-                Ask PDF
+                <AiOutlineFilePdf />  Ask PDF
 
               </span>
             </span>
           </p>
         </div>
-        <div className="lg:hidden bg-slate-100 border rounded-full p-2" onClick={handleClickRightSidebar}>
+        <div className="lg:hidden bg-[#F3F3EE] border rounded-full p-2" onClick={handleClickRightSidebar}>
           <RiFileHistoryLine size={20} />
         </div>
       </div>

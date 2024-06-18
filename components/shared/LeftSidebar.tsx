@@ -50,13 +50,28 @@ const LeftSidebar = () => {
 
 
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}  min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}    min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+      {!IsSliderOpen &&<div className=" flex-center mb-4">
+     
+          <Image
+            role="button"
+            src="https://www.dal-demo.live/static/media/icon-open-sidebar.807317206e49601b00213a5d865ca76b.svg"
+            alt="icon"
+            width={40}
+            height={40}
+            className="object-cover lg:block hidden"
+            onClick={handleClickSlider}
+          />
+       
+      </div>} 
       <div className="flex flex-col gap-5  items-center    ">
         <div className=" flex   justify-between items-start  w-full  ">
           <div className="lg:hidden  border rounded-full p-2" onClick={handleClickleftSidebar}>
             <RxCross2 size={20} stroke-width={0.2} />
           </div>
+          
           <div className="flex xl:flex-row  flex-col-reverse   justify-center items-center gap-7">
+            
             {IsSliderOpen ? <Image
               src="/LogoMark&Type.svg"
               className="mb-4"
@@ -83,7 +98,7 @@ const LeftSidebar = () => {
             }
           </div>
         </div>
-        <div className="  space-y-5  justify-between items-start  w-full overflow-y-auto  min-h-[67vh] max-h-screen ">
+        <div className={`${IsSliderOpen ? 'space-y-5 ' : 'space-y-3' }  justify-between items-start  w-full overflow-y-auto  min-h-[62vh] max-h-screen`} >
           <Link href="/" className={` ${!IsSliderOpen && 'bg-[#E8E8E3] flex-center p-3 rounded-md'} flex gap-2 w-full body-regular font-light`}>
             <Image src="/icons/home.svg"  alt="search" width={16} height={16} />
             {IsSliderOpen && data.home}
@@ -224,17 +239,7 @@ const LeftSidebar = () => {
 
 
       <SignedIn>
-        {!IsSliderOpen &&
-          <Image
-            role="button"
-            src="https://www.dal-demo.live/static/media/icon-open-sidebar.807317206e49601b00213a5d865ca76b.svg"
-            alt="icon"
-            width={40}
-            height={40}
-            className="object-cover lg:block hidden"
-            onClick={handleClickSlider}
-          />
-        }
+        
         <div className="flex  flex-col gap-4 pt-6">
           <div className="flex items-center gap-2 w-full">
             <Label onClick={() => {
@@ -244,7 +249,6 @@ const LeftSidebar = () => {
               {data.arabic}
 
             </Label>
-            {IsSliderOpen &&
               <Switch
                 id="lang"
                 className="[&>span]:bg-primary-500 border-dark-200"
@@ -253,7 +257,6 @@ const LeftSidebar = () => {
                   setIsSidebarLayout(!SidebarLayout)
                 }}
               />
-            }
 
 
           </div>
