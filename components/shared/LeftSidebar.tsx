@@ -98,7 +98,7 @@ const LeftSidebar = () => {
             }
           </div>
         </div>
-        <div className={`${IsSliderOpen ? 'space-y-5 ' : 'space-y-3' }  justify-between items-start  w-full overflow-y-auto  min-h-[62vh] max-h-screen`} >
+        <div className={`${IsSliderOpen ? 'space-y-5 ' : 'space-y-3' }  justify-between items-start  w-full overflow-y-auto  min-h-[53vh] max-h-screen`} >
           <Link href="/" className={` ${!IsSliderOpen && 'bg-[#E8E8E3] flex-center p-3 rounded-md'} flex gap-2 w-full body-regular font-light`}>
             <Image src="/icons/home.svg"  alt="search" width={16} height={16} />
             {IsSliderOpen && data.home}
@@ -281,7 +281,7 @@ const LeftSidebar = () => {
             />}
             
 
-            <button className={`${IsSliderOpen ? 'rounded-full' : 'bg-[#E8E8E3] flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
+            <button className={`${IsSliderOpen ? 'rounded-md' : 'bg-[#E8E8E3] flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
 
               {/* <TbLogout color="red" size={20} /> */}
               {/* <SignOutButton /> */}

@@ -89,13 +89,13 @@ const NewChat = () => {
               {/* <BsStars />
               <AiOutlineFilePdf /> */}
               <span
-                className={` cursor-pointer flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]" : "text-gray-500"}`}
+                className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-900 border bg-[#F3F3EE] md:border px-2 py-[8px] " : "text-gray-500"}`}
                 onClick={handleLeftToggle}
               >
                   Chat With AI
               </span>
               <span
-                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]"}`}
+                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 border bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]"}`}
                 onClick={handleRightToggle}
               >
                  Ask PDF
@@ -119,7 +119,7 @@ const NewChat = () => {
         <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full  my-2  lg:h-[64vh] h-[59vh] rounded-3xl " >
+            <ScrollArea className="flex flex-col w-full  my-2  lg:h-[62vh] h-[58vh] rounded-3xl " >
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  space-y-3   ">
