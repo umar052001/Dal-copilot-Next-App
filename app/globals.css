@@ -1,20 +1,20 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url("../styles/theme.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* @font-face {
   font-family: "Circular-Std";
   src: url(../styles/fonts/FontsFree-Net-Circular-Std-Book.ttf);
 } */
-@import url("../styles/theme.css");
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
 /* @font-face {
   font-family: "Bricolage Grotesque";
   src: url(../styles/fonts/BricolageGrotesque_24pt-Regular.ttf);
 }
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 
 body {
