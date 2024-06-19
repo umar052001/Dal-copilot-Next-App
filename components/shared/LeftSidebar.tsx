@@ -281,7 +281,7 @@ const LeftSidebar = () => {
             />}
             
 
-            <button className={`${IsSliderOpen ? 'rounded-md' : 'bg-[#E8E8E3] flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
+            <button className={`${IsSliderOpen ? 'rounded-md border' : 'bg-[#E8E8E3] flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
 
               {/* <TbLogout color="red" size={20} /> */}
               {/* <SignOutButton /> */}

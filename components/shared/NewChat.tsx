@@ -79,7 +79,7 @@ const NewChat = () => {
 
 
       <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
-        <div className="lg:hidden bg-[#F3F3EE] border rounded-full p-2" onClick={handleClickleftSidebar}>
+        <div className="lg:hidden text-white shadow-xl bg-dark-500 border   rounded-full p-2" onClick={handleClickleftSidebar}>
           <HiMenuAlt4 size={20} stroke-width={0.1} />
         </div>
 
@@ -89,13 +89,13 @@ const NewChat = () => {
               {/* <BsStars />
               <AiOutlineFilePdf /> */}
               <span
-                className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-900 border bg-[#F3F3EE] md:border px-2 py-[8px] " : "text-gray-500"}`}
+                className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-white shadow-xl border bg-dark-500 md:border px-2 py-[8px] " : "text-gray-500"}`}
                 onClick={handleLeftToggle}
               >
                   Chat With AI
               </span>
               <span
-                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500" : "text-gray-900 border bg-[#F3F3EE] md:border rounded-full px-2 py-[8px]"}`}
+                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500 " : "text-white shadow-xl border bg-dark-500 md:border rounded-full px-2 py-[8px]"}`}
                 onClick={handleRightToggle}
               >
                  Ask PDF
@@ -104,7 +104,7 @@ const NewChat = () => {
             </span>
           </p>
         </div>
-        <div className="lg:hidden bg-[#F3F3EE] border rounded-full p-2" onClick={handleClickRightSidebar}>
+        <div className="lg:hidden text-white shadow-xl bg-dark-500 border rounded-full p-2" onClick={handleClickRightSidebar}>
           <RiFileHistoryLine size={20} />
         </div>
       </div>
