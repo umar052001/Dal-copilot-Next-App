@@ -44,14 +44,14 @@ const LeftSidebar = () => {
   };
 
 
-  const handleClickSlider: MouseEventHandler<HTMLDivElement> = () => {
+  const handleClickSlider: MouseEventHandler<HTMLDivElement | HTMLButtonElement > = () => {
     setIsSliderOpen(!IsSliderOpen)
   };
 
-
+  
   return (
     <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}    min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
-      {!IsSliderOpen &&<div className=" flex-center mb-4">
+      {!IsSliderOpen &&<div className=" flex-center">
      
           <Image
             role="button"
@@ -66,7 +66,7 @@ const LeftSidebar = () => {
       </div>} 
       <div className="flex flex-col gap-5  items-center    ">
         <div className=" flex   justify-between items-start  w-full  ">
-          <div className="lg:hidden  border rounded-full p-2" onClick={handleClickleftSidebar}>
+          <div className="lg:hidden   border rounded-full p-2" onClick={handleClickleftSidebar}>
             <RxCross2 size={20} stroke-width={0.2} />
           </div>
           
@@ -124,7 +124,7 @@ const LeftSidebar = () => {
               className="w-full body-regular overflow-x-hidden "
             >
               <AccordionItem value="item-1">
-                <AccordionTrigger className=" no-underline  py-0 pb-4 ">
+                <AccordionTrigger className=" no-underline  py-0 pb-4 " >
                   <div className="flex-center gap-2  ">
                     <Image
                       src="/icons/knowledge-bases.svg"
@@ -219,14 +219,14 @@ const LeftSidebar = () => {
               </AccordionItem>
             </Accordion>
             :
-            <Link href="/" className={`${!IsSliderOpen && 'bg-[#E8E8E3] flex-center p-3 rounded-md'} flex gap-2 w-full body-regular font-light`}>
+            <button onClick={handleClickSlider} className={`${!IsSliderOpen && 'bg-[#E8E8E3]  flex-center p-3 rounded-md'} flex gap-2 w-full body-regular font-light`}>
               <Image
                 src="/icons/knowledge-bases.svg"
                 alt="search"
                 width={18}
                 height={18}
               />
-            </Link>
+            </button>
 
           }
 
@@ -281,7 +281,7 @@ const LeftSidebar = () => {
             />}
             
 
-            <button className={`${IsSliderOpen ? 'rounded-md border' : 'bg-[#E8E8E3] flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
+            <button className={`${IsSliderOpen ? 'rounded-md border' : 'bg-[#E8E8E3]  flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
 
               {/* <TbLogout color="red" size={20} /> */}
               {/* <SignOutButton /> */}

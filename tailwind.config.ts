@@ -16,6 +16,7 @@ const config = {
       },
     },
     extend: {
+    
       colors: {
         primary: {
           500: "#4dd9df",
@@ -47,6 +48,8 @@ const config = {
       },
       gridTemplateColumns: {
         "3-max": "max-content auto max-content",
+        "14": "repeat(14, minmax(0, 1fr))", // Custom grid-cols-16 class
+        "20": "repeat(20, minmax(0, 1fr))", // Custom grid-cols-20 class
       },
       gridTemplateRows: {
         "2-max": "auto max-content",

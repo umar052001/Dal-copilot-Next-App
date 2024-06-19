@@ -79,13 +79,13 @@ const NewChat = () => {
 
 
       <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
-        <div className="lg:hidden text-white shadow-xl bg-dark-500 border   rounded-full p-2" onClick={handleClickleftSidebar}>
+        <div className="lg:hidden text-white shadow-xl bg-dark-500 border    rounded-full p-2" onClick={handleClickleftSidebar}>
           <HiMenuAlt4 size={20} stroke-width={0.1} />
         </div>
 
         <div >
           <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
-            <span className={`font-extrabold  flex-center  gap-3   border px-[5px] pt-1 pb-[5px]  rounded-full `}>
+            <span className={`font-extrabold  flex-center  gap-3    border px-[5px] pt-1 pb-[5px]  rounded-full `}>
               {/* <BsStars />
               <AiOutlineFilePdf /> */}
               <span
@@ -123,11 +123,11 @@ const NewChat = () => {
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  space-y-3   ">
-                    <p className="bg-dark-500  self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
+                    <p className="bg-dark-500 shadow-xl  self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                       {message.question}
 
                     </p>
-                    <p className="bg-dark-100 w-fit max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                    <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
                       <Typewriter text={message.answer} />
                       {/* {message.answer} */}
                       {/* <Markdown>{message.answer}</Markdown> */}
