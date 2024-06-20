@@ -50,7 +50,7 @@ const LeftSidebar = () => {
 
 
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}    min-h-screen  bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}  sm:min-h-screen    bg-[#F3F3EE] flex justify-between  flex-col sm:p-6 px-6 pt-6 pb-[74px]   `}>
       {!IsSliderOpen && <div className=" flex-center">
 
         <Image
@@ -63,7 +63,8 @@ const LeftSidebar = () => {
           onClick={handleClickSlider}
         />
 
-      </div>}
+      </div>
+      }
       <div className="flex flex-col gap-5  items-center    ">
         <div className=" flex   justify-between items-start  w-full  ">
           <div className="lg:hidden   border rounded-full p-2" onClick={handleClickleftSidebar}>

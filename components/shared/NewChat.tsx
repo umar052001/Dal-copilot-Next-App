@@ -131,7 +131,7 @@ const NewChat = () => {
         <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full  my-2 shadow-xl border p-1  lg:h-[62vh] h-[58vh] rounded-3xl " >
+            <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
               {messages.map((message: any) => {
                 return (
                   <div key={message.question} className="w-full flex flex-col  space-y-2   ">
