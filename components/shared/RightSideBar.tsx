@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/languageContext'
 import { determineDictionary } from '@/lib/determineDictionaries'
 import { GoHome } from "react-icons/go";
 import { useAtom } from 'jotai'
-import { RightSidebarAtom, SidebarLayoutAtom, MessagesAtom } from '@/context/atom'
+import { RightSidebarAtom, SidebarLayoutAtom, MessagesAtom } from '@/context/jotaiContext/atom'
 import { RiHistoryFill } from "react-icons/ri";
 
 const RightSideBar = () => {

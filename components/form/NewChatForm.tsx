@@ -19,7 +19,7 @@ import { useToast } from "../ui/use-toast";
 import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom, MessagesAtom } from '@/context/atom'
+import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom, MessagesAtom } from '@/context/jotaiContext/atom'
 import messege from "@/data/messege.json";
 import { MdFilterList } from "react-icons/md";
 
@@ -36,7 +36,7 @@ interface FileProps {
   lastModified: number;
   size: number;
 }
-const NewChatForm = ({  setLoading }: any) => {
+const NewChatForm = ({ setLoading }: any) => {
   const { toast } = useToast();
   const { language } = useLanguage();
   const data = determineDictionary(language);
@@ -82,7 +82,7 @@ const NewChatForm = ({  setLoading }: any) => {
       }
     }
 
-   
+
 
 
 
@@ -308,7 +308,7 @@ const NewChatForm = ({  setLoading }: any) => {
         <section>
           {Showpdf &&
             fileArray.slice(-1)[0]?.name && (
-            <div className="flex-center relative select-none text-xs gap-2 bg-[#F3F3EE] border border-[#E8E8E3] px-2 py-1 rounded-md ">
+              <div className="flex-center relative select-none text-xs gap-2 bg-[#F3F3EE] border border-[#E8E8E3] px-2 py-1 rounded-md ">
                 <AiTwotoneFilePdf size={24} />
                 <div className="leading-4">
                   <p className="font-extrabold">{fileArray.slice(-1)[0]?.name}</p>

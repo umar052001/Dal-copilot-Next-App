@@ -9,11 +9,7 @@ type Message = {
     question: string;
     answer: string;
 };
-// export const fileObjectAtom = atom<FileObject>({
-//     name: '',
-//     sizeInMb: '',
-//     lastModifiedFormatted: ''
-// });
+
 export const LeftSidebarAtom = atom(false);
 export const RightSidebarAtom = atom(false);
 export const SidebarLayoutAtom = atom(false);

@@ -9,7 +9,7 @@ import Image from "next/image";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
-import { LeftSidebarAtom, MessagesAtom, ChangeToggleAtom,  RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/atom'
+import { LeftSidebarAtom, MessagesAtom, ChangeToggleAtom, RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/jotaiContext/atom'
 import Typewriter from '@/components/ui/typeWriter'
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import Markdown from 'react-markdown'
@@ -18,8 +18,10 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { BsStars } from "react-icons/bs";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { TiDocumentText } from "react-icons/ti";
+import messege from "@/data/messege.json";
 
 import { AiOutlineFilePdf } from "react-icons/ai";
+import { GoDotFill } from "react-icons/go";
 
 const NewChat = () => {
 
@@ -65,6 +67,16 @@ const NewChat = () => {
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsLeftSidebarOpen(!LeftSidebarOpen)
   };
+  const handleClickSuggestions = (suggestion: string) => {
+    return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const newMessage = {
+        question: suggestion,
+        answer: messege.answer,
+      };
+      setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+      setLoading(false);
+    };
+  };
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsRightSidebarOpen(!RightSidebarOpen)
@@ -92,13 +104,13 @@ const NewChat = () => {
                 className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-white shadow-xl border bg-dark-500 md:border px-2 py-[8px] " : "text-gray-500"}`}
                 onClick={handleLeftToggle}
               >
-                  Chat With AI
+                Chat With AI
               </span>
               <span
                 className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500 " : "text-white shadow-xl border bg-dark-500 md:border rounded-full px-2 py-[8px]"}`}
                 onClick={handleRightToggle}
               >
-                 Ask PDF
+                Ask PDF
 
               </span>
             </span>
@@ -119,11 +131,11 @@ const NewChat = () => {
         <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
           {
             (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full  my-2  lg:h-[62vh] h-[58vh] rounded-3xl " >
+            <ScrollArea className="flex flex-col w-full  my-2 shadow-xl border p-1  lg:h-[62vh] h-[58vh] rounded-3xl " >
               {messages.map((message: any) => {
                 return (
-                  <div key={message.question} className="w-full flex flex-col  space-y-3   ">
-                    <p className="bg-dark-500 shadow-xl  self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
+                  <div key={message.question} className="w-full flex flex-col  space-y-2   ">
+                    <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-2">
                       {message.question}
 
                     </p>
@@ -146,14 +158,16 @@ const NewChat = () => {
               }
             </ScrollArea>
           }
-          <NewChatForm  data={data} setLoading={setLoading}  />
+          <NewChatForm data={data} setLoading={setLoading} />
         </div>
         {(messages.length === 0 && !loading) && (
           <div className={`flex gap-2 ${SidebarLayout && 'text-xs'}  md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
-            <span>{data.try_pro}</span>
+            <span >{data.try_pro}</span>
             {suggestions.map((suggestion) => (
-              <button className="py-2 px-4 border border-dark-100 rounded-3xl"
+              <button
+                className="py-2 px-4 border border-dark-100 rounded-3xl"
                 key={suggestion}
+                onClick={handleClickSuggestions(suggestion)}
               >
                 {suggestion}
               </button>
