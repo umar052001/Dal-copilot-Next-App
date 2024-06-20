@@ -30,13 +30,13 @@ const LeftSidebar = () => {
   const { language, setLanguage } = useLanguage();
   const data = determineDictionary(language);
   const [fileArray, setFileArray] = useAtom(fileArrayAtom);
-  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(LeftSidebarAtom);
+  const [LeftSidebarMobileOpen, setIsLeftSidebarMobileOpen] = useAtom(LeftSidebarAtom);
   const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
   const [IsSliderOpen, setIsSliderOpen] = useAtom(SliderOpenAtom);
   const reversedFiles = fileArray.slice().reverse();
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
-    setIsLeftSidebarOpen(!LeftSidebarOpen)
+    setIsLeftSidebarMobileOpen(!LeftSidebarMobileOpen)
   };
   const handleDelete = (originalIndex: number) => {
     const updatedFiles = fileArray.filter((_, index) => index !== originalIndex);
@@ -50,7 +50,7 @@ const LeftSidebar = () => {
 
 
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}   min-h-screen       bg-[#F3F3EE] flex justify-between  flex-col p-6    `}>
+    <div className={`${SidebarLayout && 'arabic-font'}   min-h-screen bg-[#F3F3EE] flex justify-between  flex-col p-6    `}>
       {!IsSliderOpen && <div className=" flex-center">
 
         <Image

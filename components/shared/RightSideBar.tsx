@@ -13,11 +13,11 @@ const RightSideBar = () => {
   const { language } = useLanguage();
   const data = determineDictionary(language);
   const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
-  const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
+  const [RightSidebarMobileOpen, setIsRightSidebarMobileOpen] = useAtom(RightSidebarAtom);
   const [messages, setMessages] = useAtom(MessagesAtom);
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
-    setIsRightSidebarOpen(!RightSidebarOpen)
+    setIsRightSidebarMobileOpen(!RightSidebarMobileOpen)
   };
 
   const StartnewChat: MouseEventHandler<HTMLButtonElement> = () => {
@@ -26,7 +26,7 @@ const RightSideBar = () => {
   };
 
   return (
-    <div className={`${SidebarLayout && 'arabic-font'} lg:p-4 p-6 flex flex-col gap-4 bg-[#F3F3EE]  min-h-screen ${language === "en" ? "order-3" : "order-1"}`}>
+    <div className={`${SidebarLayout && 'arabic-font'} lg:p-4 p-6 flex flex-col gap-4 bg-[#F3F3EE]  min-h-screen `}>
       <div className='flex justify-between items-center gap-4'>
         <Button onClick={StartnewChat} className='bg-dark-100 hover:bg-dark-200 flex-center gap-2 rounded-3xl w-full'>
           {data.Start_a_new_Chat}

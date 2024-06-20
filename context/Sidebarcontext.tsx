@@ -2,8 +2,8 @@
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface SidebarContextProps {
-    isLeftSidebarOpen: boolean;
-    isRightSidebarOpen: boolean;
+    isLeftSidebarMobileOpen: boolean;
+    isRightSidebarMobileOpen: boolean;
     PDFupload: boolean;
     setPDFupload: Dispatch<SetStateAction<boolean>>;
     toggleLeftSidebar: () => void;
@@ -13,27 +13,27 @@ interface SidebarContextProps {
 const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
 
 export const SidebarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(false);
-    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
+    const [isLeftSidebarMobileOpen, setIsLeftSidebarMobileOpen] = useState(false);
+    const [isRightSidebarMobileOpen, setIsRightSidebarMobileOpen] = useState(false);
     const [PDFupload, setPDFupload] = useState(false);
 
     const toggleLeftSidebar = () => {
-        setIsLeftSidebarOpen(!isLeftSidebarOpen);
+        setIsLeftSidebarMobileOpen(!isLeftSidebarMobileOpen);
 
     };
 
     const toggleRightSidebar = () => {
-        setIsRightSidebarOpen(!isRightSidebarOpen);
+        setIsRightSidebarMobileOpen(!isRightSidebarMobileOpen);
     };
 
 
 
-    
+
     return (
         <SidebarContext.Provider
             value={{
-                isLeftSidebarOpen,
-                isRightSidebarOpen,
+                isLeftSidebarMobileOpen,
+                isRightSidebarMobileOpen,
                 toggleLeftSidebar,
                 toggleRightSidebar,
                 PDFupload,

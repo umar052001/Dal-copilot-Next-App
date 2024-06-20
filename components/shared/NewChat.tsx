@@ -29,8 +29,8 @@ const NewChat = () => {
   const { language } = useLanguage();
   const data = determineDictionary(language);
   const [checkPDFUpload, setcheckPDFUpload] = useAtom(PDFuploadAtom);
-  const [LeftSidebarOpen, setIsLeftSidebarOpen] = useAtom(LeftSidebarAtom);
-  const [RightSidebarOpen, setIsRightSidebarOpen] = useAtom(RightSidebarAtom);
+  const [LeftSidebarMobileOpen, setIsLeftSidebarMobileOpen] = useAtom(LeftSidebarAtom);
+  const [RightSidebarMobileOpen, setIsRightSidebarMobileOpen] = useAtom(RightSidebarAtom);
   const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
   const [SidebarLayout] = useAtom(SidebarLayoutAtom);
@@ -65,7 +65,7 @@ const NewChat = () => {
   };
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
-    setIsLeftSidebarOpen(!LeftSidebarOpen)
+    setIsLeftSidebarMobileOpen(!LeftSidebarMobileOpen)
   };
   const handleClickSuggestions = (suggestion: string) => {
     return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -79,7 +79,7 @@ const NewChat = () => {
   };
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
-    setIsRightSidebarOpen(!RightSidebarOpen)
+    setIsRightSidebarMobileOpen(!RightSidebarMobileOpen)
   };
 
 
