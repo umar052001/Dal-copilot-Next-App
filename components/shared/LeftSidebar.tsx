@@ -50,7 +50,7 @@ const LeftSidebar = () => {
 
 
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}  h-[100vh]    bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}   min-h-screen sm:pb-4 pb-6     bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
       {!IsSliderOpen && <div className=" flex-center">
 
         <Image
