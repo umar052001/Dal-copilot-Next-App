@@ -14,7 +14,7 @@ export default function HomeClient() {
     const [IsSliderOpen, setIsSliderOpen] = useAtom(SliderOpenAtom);
 
     const mobileclasses = 'col-span-6 absolute w-full z-10';
-    const Desktopclasses = '  col-span-0 lg:block hidden min-h-screen  bg-[#F3F3EE]';
+    const Desktopclasses = '  col-span-0 lg:block hidden ';
 
 
 

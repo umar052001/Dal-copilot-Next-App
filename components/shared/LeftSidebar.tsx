@@ -50,7 +50,7 @@ const LeftSidebar = () => {
 
 
   return (
-    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}   min-h-screen sm:pb-4 pb-6     bg-[#F3F3EE] flex justify-between  flex-col p-6   `}>
+    <div className={`${language === "en" ? "order-1" : "order-3"} ${SidebarLayout && 'arabic-font'}   min-h-[100vh]      bg-[#f5f504] flex justify-between  flex-col p-6 md:pb-6 pb-10   `}>
       {!IsSliderOpen && <div className=" flex-center">
 
         <Image
@@ -282,7 +282,7 @@ const LeftSidebar = () => {
             />}
 
 
-            <button className={`${IsSliderOpen ? 'rounded-md border' : 'bg-[#E8E8E3]  flex-center p-3 rounded-md w-full  '} p-2  hover:bg-[#E8E8E3]  cursor-pointer  transition-all  ease-in-out`}>
+            <button className={`${IsSliderOpen ? 'rounded-md border bg-red-200 border-red-200' : 'bg-[#E8E8E3]  flex-center p-3 rounded-md w-full  '} p-2  hover:bg-red-300 border-red-200  cursor-pointer  transition-all  ease-in-out`}>
 
               {/* <TbLogout color="red" size={20} /> */}
               {/* <SignOutButton /> */}
