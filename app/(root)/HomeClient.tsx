@@ -19,7 +19,7 @@ export default function HomeClient() {
 
 
     return (
-        <main className={`grid   ${IsSliderOpen ? 'grid-cols-6' : 'grid-cols-14'} `}>
+        <main className={`grid ${IsSliderOpen ? 'grid-cols-6' : 'grid-cols-14'} `}>
             {!SidebarLayout ? (
                 <>
                     <div className={`${LeftSidebarOpen ? mobileclasses : `${Desktopclasses} lg:col-span-1 `}`}>

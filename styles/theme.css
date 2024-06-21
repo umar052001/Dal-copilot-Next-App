@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
+
   .h1-bold {
     @apply text-[35px] font-bold leading-[42px] tracking-tighter;
   }

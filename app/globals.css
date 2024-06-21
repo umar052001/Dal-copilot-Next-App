@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
 @import url("../styles/theme.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* @font-face {
   font-family: "Circular-Std";
   src: url(../styles/fonts/FontsFree-Net-Circular-Std-Book.ttf);
@@ -13,9 +16,6 @@
   src: url(../styles/fonts/BricolageGrotesque_24pt-Regular.ttf);
 }
  */
-
-
-
 
 body {
   margin: 0;
@@ -29,12 +29,11 @@ body {
 
   /* font-family: "Inter", sans-serif; */
 }
-.arabic-font{
+.arabic-font {
   font-family: "Alexandria", sans-serif;
 }
-.english-font{
-   font-family: "Bricolage Grotesque", sans-serif;
-
+.english-font {
+  font-family: "Bricolage Grotesque", sans-serif;
 }
 @layer utilities {
   .flex-center {
@@ -130,44 +129,7 @@ body {
 }
 
 /* Markdown Start */
-.markdown a {
-  color: #1da1f2;
-}
 
-.markdown a,
-code {
-  /* These are technically the same, but use both */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  -ms-word-break: break-all;
-  /* This is the dangerous one in WebKit, as it breaks things wherever */
-  word-break: break-all;
-  /* Instead use this non-standard one: */
-  word-break: break-word;
-
-  /* Adds a hyphen where the word breaks, if supported (No Blink) */
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-
-  padding: 2px;
-  color: #ff7000 !important;
-}
-
-.markdown pre {
-  display: grid;
-  width: 100%;
-}
-
-.markdown pre code {
-  width: 100%;
-  display: block;
-  overflow-x: auto;
-
-  color: inherit !important;
-}
 /* Markdown End */
 
 /* Clerk */
@@ -199,13 +161,12 @@ code {
   position: absolute;
   z-index: -1;
 }
-.gray{
-  background-color: #E8E8E3;
+.gray {
+  background-color: #e8e8e3;
 }
-.gray-hover{
+.gray-hover {
   background-color: #e0e0db;
 }
-
 
 .file-input__label {
   cursor: pointer;
@@ -215,9 +176,6 @@ code {
   font-size: 14px;
   /* padding: 10px 12px; */
 }
-
-
-
 
 .hamburger {
   cursor: pointer;
@@ -242,7 +200,7 @@ code {
   stroke-width: 2.6;
   /* Define the transition for transforming the Stroke */
   transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
-              stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .line-top-bottom {

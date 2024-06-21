@@ -5,24 +5,46 @@ import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
-import Image from "next/image";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
 import { LeftSidebarAtom, MessagesAtom, ChangeToggleAtom, RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/jotaiContext/atom'
-import Typewriter from '@/components/ui/typeWriter'
-import MarkdownPreview from "@uiw/react-markdown-preview";
-import Markdown from 'react-markdown'
-import { HiOutlineMenuAlt1 } from "react-icons/hi";
-import { HiMenuAlt4 } from "react-icons/hi";
-import { BsStars } from "react-icons/bs";
-import { FaRegFilePdf } from "react-icons/fa6";
-import { TiDocumentText } from "react-icons/ti";
 import messege from "@/data/messege.json";
+import { HiMenuAlt4 } from "react-icons/hi";
+import MarkdownConversion from "../ui/markdown-conversion";
+// import Typewriter from '@/components/ui/typeWriter'
+// import Image from "next/image";
+// import MarkdownPreview from "@uiw/react-markdown-preview";
+// import Markdown from 'react-markdown'
+// import { HiOutlineMenuAlt1 } from "react-icons/hi";
+// import { BsStars } from "react-icons/bs";
+// import { FaRegFilePdf } from "react-icons/fa6";
+// import { TiDocumentText } from "react-icons/ti";
 
-import { AiOutlineFilePdf } from "react-icons/ai";
-import { GoDotFill } from "react-icons/go";
+// import { AiOutlineFilePdf } from "react-icons/ai";
+// import { GoDotFill } from "react-icons/go";
+// import MarkdownToHtml from '@/components/ui/markdownToHtml'
 
+
+const markdownContent = `A DevOps Developer is someone who combines software development and IT operations to improve the speed, quality, and reliability of deployments. Here are some essential skills that such a professional should have:
+
+1. **Programming and Scripting:**
+   - Python, Ruby, Bash scripting for automation.
+   - Ability to write clean, maintainable code.
+
+2. **Cloud Platforms:**
+   - Proficient in AWS, Azure, Google Cloud Platform (GCP), or other cloud services.
+   - Understanding of cloud architecture and services like S3, EC2, RDS, etc.
+
+3. **Containerization:**
+   - Docker for creating, deploying, and running applications.
+   - Knowledge of container orchestration tools like Kubernetes.
+
+4. **Configuration Management Tools:**
+   - Ansible, Chef, Puppet, or SaltStack for managing servers and automating infrastructure setup.
+
+These skills help a DevOps Developer bridge the gap between software developers and IT professionals to streamline the process of deployment and maintenance of applications.
+`;
 const NewChat = () => {
 
   const { toast } = useToast();
@@ -87,95 +109,101 @@ const NewChat = () => {
 
 
   return (
-    <main className={`${SidebarLayout && 'arabic-font'}`} >
+    <>
+
+      {/* <MarkdownConversion markdownContent={markdownContent} speed={12}  /> */}
+
+      <main className={`${SidebarLayout && 'arabic-font'}`} >
 
 
-      <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
-        <div className="lg:hidden text-white shadow-xl bg-dark-500 border    rounded-full p-2" onClick={handleClickleftSidebar}>
-          <HiMenuAlt4 size={20} stroke-width={0.1} />
-        </div>
-
-        <div >
-          <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
-            <span className={`font-extrabold  flex-center  gap-3    border px-[5px] pt-1 pb-[5px]  rounded-full `}>
-              {/* <BsStars />
-              <AiOutlineFilePdf /> */}
-              <span
-                className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-white shadow-xl border bg-dark-500 md:border px-2 py-[8px] " : "text-gray-500"}`}
-                onClick={handleLeftToggle}
-              >
-                Chat With AI
-              </span>
-              <span
-                className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500 " : "text-white shadow-xl border bg-dark-500 md:border rounded-full px-2 py-[8px]"}`}
-                onClick={handleRightToggle}
-              >
-                Ask PDF
-
-              </span>
-            </span>
-          </p>
-        </div>
-        <div className="lg:hidden text-white shadow-xl bg-dark-500 border rounded-full p-2" onClick={handleClickRightSidebar}>
-          <RiFileHistoryLine size={20} />
-        </div>
-      </div>
-
-
-      <div className="md:px-10 px-5         flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
-        {(messages.length === 0 && !loading) && (
-          <h1 className={`text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]  } `}>
-            {data.where_knowledge_begins}
-          </h1>
-        )}
-        <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
-          {
-            (messages.length > 0 || loading) &&
-            <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
-              {messages.map((message: any) => {
-                return (
-                  <div key={message.question} className="w-full flex flex-col  space-y-2   ">
-                    <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-2">
-                      {message.question}
-
-                    </p>
-                    <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
-                      <Typewriter text={message.answer} />
-                      {/* {message.answer} */}
-                      {/* <Markdown>{message.answer}</Markdown> */}
-                    </p>
-
-                  </div>
-                );
-              })}
-              {
-                loading && (
-                  <div className="w-full flex flex-col">
-                    <Skeleton className="bg-dark-300 w-[200px] h-8 rounded-2xl my-2 self-end" />
-                    <Skeleton className="bg-dark-100 w-[300px] h-8 rounded-2xl my-2 " />
-                  </div>
-                )
-              }
-            </ScrollArea>
-          }
-          <NewChatForm data={data} setLoading={setLoading} />
-        </div>
-        {(messages.length === 0 && !loading) && (
-          <div className={`flex gap-2 ${SidebarLayout && 'text-xs'}  md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
-            <span >{data.try_pro}</span>
-            {suggestions.map((suggestion) => (
-              <button
-                className="py-2 px-4 border border-dark-100 rounded-3xl"
-                key={suggestion}
-                onClick={handleClickSuggestions(suggestion)}
-              >
-                {suggestion}
-              </button>
-            ))}
+        <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
+          <div className="lg:hidden text-white shadow-xl bg-dark-500 border    rounded-full p-2" onClick={handleClickleftSidebar}>
+            <HiMenuAlt4 size={20} stroke-width={0.1} />
           </div>
-        )}
-      </div>
-    </main>
+
+          <div >
+            <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
+              <span className={`font-extrabold  flex-center  gap-3    border px-[5px] pt-1 pb-[5px]  rounded-full `}>
+                {/* <BsStars />
+              <AiOutlineFilePdf /> */}
+                <span
+                  className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-white shadow-xl border bg-dark-500 md:border px-2 py-[8px] " : "text-gray-500"}`}
+                  onClick={handleLeftToggle}
+                >
+                  Chat With AI
+                </span>
+                <span
+                  className={`cursor-pointer  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-gray-500 " : "text-white shadow-xl border bg-dark-500 md:border rounded-full px-2 py-[8px]"}`}
+                  onClick={handleRightToggle}
+                >
+                  Ask PDF
+
+                </span>
+              </span>
+            </p>
+          </div>
+          <div className="lg:hidden text-white shadow-xl bg-dark-500 border rounded-full p-2" onClick={handleClickRightSidebar}>
+            <RiFileHistoryLine size={20} />
+          </div>
+        </div>
+
+
+        <div className="md:px-10 px-5         flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
+          {(messages.length === 0 && !loading) && (
+            <h1 className={`text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]  } `}>
+              {data.where_knowledge_begins}
+            </h1>
+          )}
+          <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
+            {
+              (messages.length > 0 || loading) &&
+              <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
+                {messages.map((message: any) => {
+                  return (
+                    <div key={message.question} className="w-full flex flex-col  space-y-2   ">
+                      <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
+                        {message.question}
+                      </p>
+                      <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                        <MarkdownConversion markdownContent={message.answer} speed={18} />
+                        {/* <Typewriter text={message.answer} /> */}
+                        {/* <MarkdownConversion markdownContent={message.answer} /> */}
+                        {/* {message.answer} */}
+                        {/* <Markdown>{message.answer}</Markdown> */}
+                      </p>
+
+                    </div>
+                  );
+                })}
+                {
+                  loading && (
+                    <div className="w-full flex flex-col">
+                      <Skeleton className="bg-dark-300 w-[200px] h-8 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl my-3 self-end" />
+                      <Skeleton className="bg-dark-100 w-[300px] h-8 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
+                    </div>
+                  )
+                }
+              </ScrollArea>
+            }
+            <NewChatForm data={data} setLoading={setLoading} />
+          </div>
+          {(messages.length === 0 && !loading) && (
+            <div className={`flex gap-2 ${SidebarLayout && 'text-xs'}  md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
+              <span >{data.try_pro}</span>
+              {suggestions.map((suggestion) => (
+                <button
+                  className="py-2 px-4 border border-dark-100 rounded-3xl"
+                  key={suggestion}
+                  onClick={handleClickSuggestions(suggestion)}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 };
 

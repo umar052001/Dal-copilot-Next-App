@@ -16,15 +16,14 @@ import { Switch } from "../ui/switch";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
-import { useSidebar } from '@/context/Sidebarcontext';
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
 import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom, MessagesAtom } from '@/context/jotaiContext/atom'
-import messege from "@/data/messege.json";
 import { MdFilterList } from "react-icons/md";
-
-import { Tooltip, Button } from "@material-tailwind/react";
 import { RxCross2 } from "react-icons/rx";
+import messege from "@/data/messege.json";
+import { useSidebar } from '@/context/Sidebarcontext';
+import { Tooltip, Button } from "@material-tailwind/react";
 
 
 const formSchema = z.object({
@@ -61,37 +60,41 @@ const NewChatForm = ({ setLoading }: any) => {
     const { prompt, pro } = values;
     form.reset();
     const fileInput = document.getElementById("file-input") as HTMLInputElement;
-    const newMessage = {
-      question: prompt,
-      answer: messege.answer,
-    };
-    if (ChangeToggle === true) {
-      setMessages((prevMessages: any) => [...prevMessages, newMessage]);
-      setLoading(false);
-    } else {
-      if (isFileUploading) {
-        toast({
-          title: "File",
-          description: "Wait for file to upload pls...",
-          variant: "primary",
-        });
-        return;
-      } else {
-        setMessages((prevMessages: any) => [...prevMessages, newMessage]);
-        setLoading(false);
-      }
-    }
+    // const newMessage = {
+    //   question: prompt,
+    //   answer: messege.answer,
+    // };
 
 
 
+    // if (ChangeToggle === true) {
+    //   setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+    //   setLoading(false);
+    // } else {
+    //   if (isFileUploading) {
+    //     toast({
+    //       title: "File",
+    //       description: "Wait for file to upload pls...",
+    //       variant: "primary",
+    //     });
+    //     return;
+    //   } else {
+    //     setMessages((prevMessages: any) => [...prevMessages, newMessage]);
+    //     setLoading(false);
+    //   }
+    // }
 
+
+
+    setLoading(true);
 
     if (fileInput && fileInput?.files) {
+      
       const file = fileInput?.files[0];
       if (file === undefined) {
         const formData = new FormData();
         formData.append("query", prompt);
-        fetch(`${process.env.NEXT_PUBLIC_GEN_API}/ask_llm`, {
+        fetch(`${process.env.NEXT_PUBLIC_GEN_API}/ai`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -100,9 +103,10 @@ const NewChatForm = ({ setLoading }: any) => {
         })
           .then((response) => response.json())
           .then((data) => {
+            console.log("🚀 ~ .then ~ data:", data)
             const newMessage = {
               question: prompt,
-              answer: data.response.answer.text,
+              answer: data.answer,
             };
             setMessages((prevMessages: any) => [...prevMessages, newMessage]);
             setLoading(false);
@@ -110,7 +114,7 @@ const NewChatForm = ({ setLoading }: any) => {
           .catch((error) => console.error(error));
         return;
       }
-      fetch(`${process.env.NEXT_PUBLIC_GEN_API}/ask_pdf`, {
+      fetch(`${process.env.NEXT_PUBLIC_GEN_API}/ask_pdf1`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -135,7 +139,7 @@ const NewChatForm = ({ setLoading }: any) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
 
-      if (file?.type === 'application/pdf') {
+      if (file?.type === 'application/pdf1') {
         setMessages([]);
 
         const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
@@ -207,6 +211,8 @@ const NewChatForm = ({ setLoading }: any) => {
     setChangeToggle(true)
     setcheckPDFUpload(false)
   };
+
+  
   return (
     <Form {...form}>
       <form
