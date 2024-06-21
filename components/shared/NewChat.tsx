@@ -178,8 +178,8 @@ const NewChat = () => {
                 {
                   loading && (
                     <div className="w-full flex flex-col">
-                      <Skeleton className="bg-dark-300 w-[200px] h-8 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl my-3 self-end" />
-                      <Skeleton className="bg-dark-100 w-[300px] h-8 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
+                      <Skeleton className="bg-dark-300 w-[200px] h-10 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl my-3 self-end" />
+                        <Skeleton className="bg-dark-100 w-[300px] h-10 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
                     </div>
                   )
                 }
