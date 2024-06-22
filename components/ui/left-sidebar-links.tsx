@@ -22,7 +22,7 @@ const Leftsidebarlinks = ( data:any) => {
     const reversedFiles = fileArray.slice().reverse();
 
     return (
-        <div className={`space-y-5   justify-between items-start  w-full overflow-y-auto  min-h-[53vh] max-h-screen`} >
+        <div className={`space-y-5   justify-between items-start  w-full `} >
             <Link href="/" className={`  flex gap-2 w-full body-regular font-light`}>
                 <Image src="/icons/home.svg" alt="search" width={16} height={16} />
                 {data.data.home}

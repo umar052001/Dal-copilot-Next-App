@@ -121,7 +121,7 @@ const NewChat = () => {
             <HiMenuAlt4 size={20} stroke-width={0.1} />
           </div>
 
-          <div >
+          <div className="english-font" >
             <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
               <span className={`font-extrabold  flex-center  gap-3    border px-[5px] pt-1 pb-[5px]  rounded-full `}>
                 {/* <BsStars />

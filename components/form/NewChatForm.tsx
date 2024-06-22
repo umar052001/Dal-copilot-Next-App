@@ -229,8 +229,8 @@ const NewChatForm = ({ setLoading }: any) => {
                   {...field}
                   placeholder={data.ask_anything}
                   className={`border-0  ${language == "ar"
-                    ? "text-end px-1 rtl"
-                    : "text-start px-5 ltr"
+                    ? " px-1 "
+                    : " px-5 "
                     }`}
                 />
               </FormControl>

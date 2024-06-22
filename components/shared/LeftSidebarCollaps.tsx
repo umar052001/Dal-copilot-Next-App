@@ -1,6 +1,6 @@
 "use client";
 import { SignedIn } from "@clerk/clerk-react";
-import { SignOutButton } from "@clerk/nextjs";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 import { MouseEventHandler } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 import { useAtom } from 'jotai'
 import { SidebarLayoutAtom, SliderOpenAtom } from '@/context/jotaiContext/atom'
 import { TbLogout } from "react-icons/tb";
+import { LuArrowLeftFromLine } from "react-icons/lu";
 
 const LeftSidebarCollaps = () => {
     const { language, setLanguage } = useLanguage();
@@ -24,19 +25,33 @@ const LeftSidebarCollaps = () => {
     };
 
 
+    const toggleLanguageAndLayout = () => {
+        console.log('Hello from langu');
+        const html = document.documentElement;
+        if (language === "en") {
+            setLanguage("ar");
+            html.setAttribute('dir', 'rtl');
+        } else {
+            setLanguage("en");
+            html.setAttribute('dir', 'ltr');
+        }
+        setIsSidebarLayout(!SidebarLayout);
+    };
     return (
-        <div className={`${SidebarLayout && 'arabic-font'}   min-h-screen bg-[#F3F3EE] flex justify-between  flex-col p-6    `}>
+        <div className={`${SidebarLayout && 'arabic-font '}   min-h-screen bg-[#F3F3EE] flex justify-between  flex-col xl:p-5 p-3    `}>
             <div className=" flex-center">
-                <Image
+                {/* <Image
                     role="button"
                     src="https://www.dal-demo.live/static/media/icon-open-sidebar.807317206e49601b00213a5d865ca76b.svg"
                     alt="icon"
                     width={40}
                     height={40}
-                    className="object-cover lg:block hidden"
+                    className={`object-cover lg:block hidden  ${SidebarLayout ? 'rotate-180' : ''}`}
                     onClick={handleClickSlider}
-                />
-
+                /> */}
+                <div onClick={handleClickSlider} className={`p-[9px] flex-center cursor-pointer bg-[#E8E8E3] rounded-full object-cover lg:block hidden`}>
+                    <LuArrowLeftFromLine className={`${!SidebarLayout ? 'rotate-180' : ''}`} size={22} />
+                </div>
             </div>
             <div className="flex flex-col gap-5  items-center    ">
                 <div className=" flex   justify-between items-start  w-full  ">
@@ -82,31 +97,43 @@ const LeftSidebarCollaps = () => {
 
 
             <SignedIn>
-                <div className="flex  flex-col gap-4 pt-6">
-                    <div className="flex items-center gap-2 w-full">
-                        <Label onClick={() => {
-                            setLanguage(language === "en" ? "ar" : "en");
-                            setIsSidebarLayout(!SidebarLayout)
-                        }} id="lang" htmlFor="lang" className="cursor-pointer arabic-font">
-                            {data.arabic}
 
-                        </Label>
-                        <Switch
-                            id="lang"
-                            className="[&>span]:bg-primary-500 border-dark-200"
-                            onClick={() => {
-                                setLanguage(language === "en" ? "ar" : "en");
-                                setIsSidebarLayout(!SidebarLayout)
-                            }}
-                        />
-                    </div>
-                    <div className=" flex-between">
-                        <button className={`bg-[#E8E8E3]  flex-center  rounded-md w-full   p-2  hover:bg-red-300 border-red-200  cursor-pointer  transition-all  ease-in-out`}>
-                            <SignOutButton>
-                                <TbLogout color="red" size={20} />
-                            </SignOutButton>
-                        </button>
-                    </div>
+                <div className=" flex-center  space-top1 flex-col-reverse  ">
+                    <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className=" mt-3 cursor-pointer english-font">
+                        {data.arabic}
+
+                    </Label>
+                    <Switch
+                        id="lang"
+                        className="[&>span]:bg-primary-500 border-dark-200"
+                        onClick={toggleLanguageAndLayout}
+                    />
+                </div>
+
+                <div className=" block text-center english-font ">
+                    <UserButton
+                        showName={false}
+                        appearance={{
+                            elements: {
+                                userButtonBox: {
+                                    flexDirection: "row-reverse",
+                                    padding: "0px 0px",
+                                },
+                                userButtonTrigger: {
+                                    width: "100%",
+                                },
+                                rootBox: {
+                                    // backgroundColor: "#E8E9E9",
+                                    borderRadius: "4px",
+                                },
+                            },
+                        }}
+                    />
+                    <button className={`bg-red-200 border-red-300 ${SidebarLayout ? 'rotate-180' : ''}  flex-center  rounded-md w-full   p-2    cursor-pointer  transition-all  ease-in-out`}>
+                        <SignOutButton>
+                            <TbLogout color="red" size={20} />
+                        </SignOutButton>
+                    </button>
                 </div>
             </SignedIn>
 

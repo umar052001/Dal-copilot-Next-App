@@ -1,7 +1,7 @@
 "use client";
 import { SignedIn } from "@clerk/clerk-react";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
-import { MouseEventHandler} from "react";
+import { MouseEventHandler } from "react";
 import Image from "next/image";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
@@ -13,6 +13,7 @@ import { RxCross2 } from "react-icons/rx";
 import { TbLogout } from "react-icons/tb";
 import Leftsidebarlinks from "@/components/ui/left-sidebar-links";
 import LeftSidebarCollaps from "./LeftSidebarCollaps";
+import { LuArrowLeftFromLine } from "react-icons/lu";
 
 
 
@@ -31,11 +32,24 @@ const LeftSidebar = () => {
   };
 
 
+
+  const toggleLanguageAndLayout = () => {
+    console.log('Hello from langu');
+    const html = document.documentElement;
+    if (language === "en") {
+      setLanguage("ar");
+      html.setAttribute('dir', 'rtl');
+    } else {
+      setLanguage("en");
+      html.setAttribute('dir', 'ltr');
+    }
+    setIsSidebarLayout(!SidebarLayout);
+  };
+
   return (
 
     IsSliderOpen ?
-
-      <div className={`${SidebarLayout && 'arabic-font'}   min-h-screen bg-[#F3F3EE] flex justify-between  flex-col p-6    `}>
+      <div className={`${SidebarLayout && 'arabic-font '}   min-h-screen bg-[#F3F3EE] flex justify-between  flex-col lg:p-6 p-4    `}>
         <div className="flex flex-col gap-5  items-center    ">
           <div className=" flex   justify-between items-start  w-full  ">
             <div className="lg:hidden   border rounded-full p-2" onClick={handleClickleftSidebar}>
@@ -50,15 +64,18 @@ const LeftSidebar = () => {
                 width={128}
                 height={56}
               />
-              <Image
+              <div onClick={handleClickSlider} className={`p-[9px] flex-center cursor-pointer bg-[#E8E8E3] rounded-full object-cover lg:block hidden`}>
+                <LuArrowLeftFromLine className={`${SidebarLayout ? 'rotate-180' : ''}`} size={22} />
+              </div>
+              {/* <Image
                 role="button"
                 src="https://www.dal-demo.live/static/media/icon-close-sidebar.f533511f4b93ab354ecd666a1324e890.svg"
                 alt="icon"
                 width={40}
                 height={40}
-                className="object-cover lg:block hidden"
+                className={`${SidebarLayout ? 'rotate-180' : ''} object-cover lg:block hidden`}
                 onClick={handleClickSlider}
-              />
+              /> */}
             </div>
           </div>
 
@@ -67,27 +84,20 @@ const LeftSidebar = () => {
         </div>
         <SignedIn>
 
-          <div className="flex  flex-col gap-4 pt-6">
-            <div className="flex items-center gap-2 w-full">
-              <Label onClick={() => {
-                setLanguage(language === "en" ? "ar" : "en");
-                setIsSidebarLayout(!SidebarLayout)
-              }} id="lang" htmlFor="lang" className="cursor-pointer arabic-font">
+          <div className="flex  flex-col gap-4 pt-6 ">
+            <div className="flex items-center gap-2 w-full ">
+              <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className="cursor-pointer english-font">
                 {data.arabic}
-
               </Label>
               <Switch
                 id="lang"
                 className="[&>span]:bg-primary-500 border-dark-200"
-                onClick={() => {
-                  setLanguage(language === "en" ? "ar" : "en");
-                  setIsSidebarLayout(!SidebarLayout)
-                }}
+                onClick={toggleLanguageAndLayout}
               />
 
 
             </div>
-            <div className=" flex-between">
+            <div className=" xl:flex-between english-font">
               <UserButton
                 showName={true}
                 appearance={{
@@ -106,9 +116,10 @@ const LeftSidebar = () => {
                   },
                 }}
               />
-              <button className={` rounded-md border bg-red-200 border-red-200 p-2  hover:bg-red-300 cursor-pointer  transition-all  ease-in-out`}>
+              <button className={`  rounded-md border xl:w-10 w-full xl:mt-0 mt-2  flex-center bg-red-200 border-red-300 p-2   cursor-pointer  transition-all  ease-in-out`}>
+                <span className="text-red-600 font-bold lg:hidden mr-2 ">Logout</span>
                 <SignOutButton>
-                  <TbLogout color="red" size={20} />
+                  <TbLogout className={`${SidebarLayout ? 'rotate-180' : ''} text-red-600`} size={20} />
                 </SignOutButton>
               </button>
             </div>

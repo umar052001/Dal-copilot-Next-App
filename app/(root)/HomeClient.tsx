@@ -20,7 +20,6 @@ export default function HomeClient() {
 
     return (
         <main className={`grid ${IsSliderOpen ? 'grid-cols-6' : 'grid-cols-14'} `}>
-            {!SidebarLayout ? (
                 <>
                     <div className={`${LeftSidebarOpen ? mobileclasses : `${Desktopclasses} lg:col-span-1 `}`}>
                         <LeftSidebar />
@@ -32,19 +31,7 @@ export default function HomeClient() {
                         <RightSideBar />
                     </div>
                 </>
-            ) : (
-                <>
-                    <div className={`${RightSidebarOpen ? mobileclasses : `${Desktopclasses} ${IsSliderOpen ? 'lg:col-span-1' : 'lg:col-span-2'}  `}`}>
-                        <RightSideBar />
-                    </div>
-                    <div className={` ${IsSliderOpen ? 'lg:col-span-4 col-span-6' : 'lg:col-span-11 col-span-12'}      `}>
-                        <NewChat />
-                    </div>
-                    <div className={`${LeftSidebarOpen ? mobileclasses : `${Desktopclasses} lg:col-span-1 `}`}>
-                        <LeftSidebar />
-                    </div>
-                </>
-            )}
+          
         </main>
     );
 }
