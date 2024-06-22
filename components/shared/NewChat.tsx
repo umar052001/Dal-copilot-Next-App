@@ -32,6 +32,7 @@ import MarkdownConversion from "../ui/markdown-conversion";
 // import MarkdownToHtml from '@/components/ui/markdownToHtml'
 
 import { useAI } from '@/hooks/useAI';
+import Ask_pdf from "../ui/ask_pdf";
 
 const NewChat = () => {
 
@@ -98,7 +99,7 @@ const NewChat = () => {
     <>
 
       {/* <MarkdownConversion markdownContent={markdownContent} speed={12}  /> */}
-
+      <Ask_pdf />
       <main className={`${SidebarLayout && 'arabic-font'}`} >
 
 
@@ -170,15 +171,15 @@ const NewChat = () => {
 
             {ChangeToggle ?
               (AImessages?.length > 0 || AIloading) &&
-              <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
+              <ScrollArea className="flex flex-col w-full  my-2    xl:h-[67vh] lg:h-[60vh] h-[64vh] rounded-3xl " >
                 {AImessages?.map((message: any) => {
                   return (
                     <div key={message.question} className="w-full flex flex-col  space-y-2   ">
                       <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
-                      <p className="bg-dark-100 w-fit  max-w-full px-4 pt-3 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
-                        <MarkdownConversion markdownContent={message.answer} speed={18} />
+                      <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                        <MarkdownConversion markdownContent={message.answer} speed={14} />
                       </p>
 
                     </div>
@@ -202,8 +203,8 @@ const NewChat = () => {
                       <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
-                      <p className="bg-dark-100 w-fit  max-w-full px-4 pt-3 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
-                        <MarkdownConversion markdownContent={message.answer} speed={18} />
+                      <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                        <MarkdownConversion markdownContent={message.answer.answer}  speed={18} />
                       </p>
 
                     </div>

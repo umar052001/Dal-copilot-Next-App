@@ -53,8 +53,8 @@ const MarkdownConversion: React.FC<MarkdownConversionProps> = ({ markdownContent
     }, [htmlContent, speed]);
 
     return (
-        <div className="markdown-body ">
-            <div dangerouslySetInnerHTML={{ __html: displayedContent }} />
+        <div>
+            <div className="markdown-body" dangerouslySetInnerHTML={{ __html: displayedContent }} />
             {/* {showCursor && <span className="flex-center  w-2 h-2 rounded-full ml-1 bg-black opacity-75 animate-blink"></span>} */}
         </div>
     );

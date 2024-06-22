@@ -21,7 +21,8 @@ export const useAskPDF = () => {
       );
 
       const data = await response.json();
-      const newMessage = { question: prompt, answer: data.answer };
+      const newMessage = { question: prompt, answer: data };
+      console.log("🚀 ~ fetchAskPDFResponse ~ data:", data)
       setAsk_pdfMessages((prevMessages) => [...prevMessages, newMessage]);
     } catch (error) {
       console.error(error);
