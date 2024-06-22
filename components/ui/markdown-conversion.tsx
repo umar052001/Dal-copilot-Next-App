@@ -51,9 +51,10 @@ const MarkdownConversion: React.FC<MarkdownConversionProps> = ({ markdownContent
         };
 
     }, [htmlContent, speed]);
-
+// TODO-1: Add check function for whether the text is in arabic or english (tip: you can use a regex to check for arabic characters in the text and then set the direction of the text accordingly)
     return (
         <div>
+            {/* TODO-2:  Change the direction of the text to rtl if its arabic and vice verca i.e ltr*/}
             <div className="markdown-body" dangerouslySetInnerHTML={{ __html: displayedContent }} />
             {/* {showCursor && <span className="flex-center  w-2 h-2 rounded-full ml-1 bg-black opacity-75 animate-blink"></span>} */}
         </div>
