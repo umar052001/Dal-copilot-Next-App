@@ -64,9 +64,6 @@ const NewChatForm = ({ setLoading }: any) => {
     //   question: prompt,
     //   answer: messege.answer,
     // };
-
-
-
     // if (ChangeToggle === true) {
     //   setMessages((prevMessages: any) => [...prevMessages, newMessage]);
     //   setLoading(false);

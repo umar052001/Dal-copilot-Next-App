@@ -117,7 +117,7 @@ const LeftSidebar = () => {
                 }}
               />
               <button className={`  rounded-md border xl:w-10 w-full xl:mt-0 mt-2  flex-center bg-red-200 border-red-300 p-2   cursor-pointer  transition-all  ease-in-out`}>
-                <span className="text-red-600 font-bold lg:hidden mr-2 ">Logout</span>
+                <span className={`text-red-600 font-bold lg:hidden mx-2 text-sm ${SidebarLayout && 'arabic-font  '} `}>{data.logout}</span>
                 <SignOutButton>
                   <TbLogout className={`${SidebarLayout ? 'rotate-180' : ''} text-red-600`} size={20} />
                 </SignOutButton>
