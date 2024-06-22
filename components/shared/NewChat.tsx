@@ -8,7 +8,13 @@ import { Skeleton } from "../ui/skeleton";
 import { RiFileHistoryLine } from "react-icons/ri";
 import { useToast } from "../ui/use-toast";
 import { useAtom } from 'jotai'
-import { LeftSidebarAtom, MessagesAtom, ChangeToggleAtom, RightSidebarAtom, SidebarLayoutAtom, PDFuploadAtom, ShowPDFAtom } from '@/context/jotaiContext/atom'
+import {
+  AIMessagesAtom, AILoadingAtom,
+  Ask_PDFMessagesAtom, Ask_PDFLoadingAtom,
+  ChangeToggleAtom, LeftSidebarAtom,
+  RightSidebarAtom, SidebarLayoutAtom,
+  PDFuploadAtom, ShowPDFAtom
+} from '@/context/jotaiContext/atom'
 import messege from "@/data/messege.json";
 import { HiMenuAlt4 } from "react-icons/hi";
 import MarkdownConversion from "../ui/markdown-conversion";
@@ -25,26 +31,8 @@ import MarkdownConversion from "../ui/markdown-conversion";
 // import { GoDotFill } from "react-icons/go";
 // import MarkdownToHtml from '@/components/ui/markdownToHtml'
 
+import { useAI } from '@/hooks/useAI';
 
-const markdownContent = `A DevOps Developer is someone who combines software development and IT operations to improve the speed, quality, and reliability of deployments. Here are some essential skills that such a professional should have:
-
-1. **Programming and Scripting:**
-   - Python, Ruby, Bash scripting for automation.
-   - Ability to write clean, maintainable code.
-
-2. **Cloud Platforms:**
-   - Proficient in AWS, Azure, Google Cloud Platform (GCP), or other cloud services.
-   - Understanding of cloud architecture and services like S3, EC2, RDS, etc.
-
-3. **Containerization:**
-   - Docker for creating, deploying, and running applications.
-   - Knowledge of container orchestration tools like Kubernetes.
-
-4. **Configuration Management Tools:**
-   - Ansible, Chef, Puppet, or SaltStack for managing servers and automating infrastructure setup.
-
-These skills help a DevOps Developer bridge the gap between software developers and IT professionals to streamline the process of deployment and maintenance of applications.
-`;
 const NewChat = () => {
 
   const { toast } = useToast();
@@ -56,8 +44,11 @@ const NewChat = () => {
   const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
   const [SidebarLayout] = useAtom(SidebarLayoutAtom);
-  const [loading, setLoading] = useState<Boolean>(false);
-  const [messages, setMessages] = useAtom(MessagesAtom);
+  const [ask_pdfmessages, setAsk_pdfMessages] = useAtom(Ask_PDFMessagesAtom);
+  const [ask_pdfloading, setAsk_pdfLoading] = useAtom(Ask_PDFLoadingAtom);
+  const [AImessages, setAIMessages] = useAtom(AIMessagesAtom);
+  const [AIloading, setAILoading] = useAtom(AILoadingAtom);
+  const { fetchAIResponse } = useAI();
 
   const suggestions = [
     data["how_many_stars_are_in_the_milky_Way?"],
@@ -68,36 +59,31 @@ const NewChat = () => {
 
   const handleLeftToggle = () => {
     setChangeToggle(true)
-    if (checkPDFUpload) {
-      setShowpdf(false)
-    }
+    // if (checkPDFUpload) {
+    //   setShowpdf(false)
+    // }
 
   };
   const handleRightToggle = () => {
-    if (ChangeToggle && checkPDFUpload) {
-      setChangeToggle(false);
-      setShowpdf(true)
-    } else {
-      toast({
-        title: "Instruction",
-        description: "Please Attach PDF File First !!",
-        variant: "destructive",
-      });
-    }
+    setChangeToggle(false)
+
+    // if (ChangeToggle && checkPDFUpload) {
+    //   setChangeToggle(false);
+    //   setShowpdf(true)
+    // } else {
+    //   toast({
+    //     title: "Instruction",
+    //     description: "Please Attach PDF File First !!",
+    //     variant: "destructive",
+    //   });
+    // }
   };
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsLeftSidebarMobileOpen(!LeftSidebarMobileOpen)
   };
   const handleClickSuggestions = (suggestion: string) => {
-    return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const newMessage = {
-        question: suggestion,
-        answer: messege.answer,
-      };
-      setMessages((prevMessages: any) => [...prevMessages, newMessage]);
-      setLoading(false);
-    };
+    fetchAIResponse(suggestion);
   };
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
@@ -148,59 +134,118 @@ const NewChat = () => {
         </div>
 
 
-        <div className="md:px-10 px-5         flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
-          {(messages.length === 0 && !loading) && (
-            <h1 className={`text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]  } `}>
+        <div className="md:px-10 px-5 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
+
+
+
+          {/* 
+          {((ask_pdfmessages?.length || AImessages?.length !== 0) && !ask_pdfloading || !AIloading) && (
+            <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
               {data.where_knowledge_begins}
             </h1>
-          )}
-          <div className={`w-full  flex flex-col  ${(messages.length > 0 || loading) ? "justify-between h-full " : ""} `}>
-            {
-              (messages.length > 0 || loading) &&
+          )} */}
+
+
+
+
+          {!ChangeToggle &&
+            (ask_pdfmessages?.length === 0 && !ask_pdfloading) && (
+              <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
+                {data.where_knowledge_begins}
+              </h1>
+            )}
+          {ChangeToggle &&
+            (AImessages?.length === 0 && !AIloading) && (
+              <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
+                {data.where_knowledge_begins}
+              </h1>
+            )}
+
+
+
+
+
+
+          <div className={`w-full  flex flex-col  ${(ask_pdfmessages?.length || AImessages?.length > 0) ? "justify-between h-full " : ""} `}>
+
+            {ChangeToggle ?
+              (AImessages?.length > 0 || AIloading) &&
               <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
-                {messages.map((message: any) => {
+                {AImessages?.map((message: any) => {
                   return (
                     <div key={message.question} className="w-full flex flex-col  space-y-2   ">
                       <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
-                      <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                      <p className="bg-dark-100 w-fit  max-w-full px-4 pt-3 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
                         <MarkdownConversion markdownContent={message.answer} speed={18} />
-                        {/* <Typewriter text={message.answer} /> */}
-                        {/* <MarkdownConversion markdownContent={message.answer} /> */}
-                        {/* {message.answer} */}
-                        {/* <Markdown>{message.answer}</Markdown> */}
                       </p>
 
                     </div>
                   );
                 })}
                 {
-                  loading && (
+                  AIloading && (
                     <div className="w-full flex flex-col">
                       <Skeleton className="bg-dark-300 w-[200px] h-9 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl my-3 self-end" />
-                        <Skeleton className="bg-dark-100 w-[300px] h-9 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
+                      <Skeleton className="bg-dark-100 w-[300px] h-9 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
+                    </div>
+                  )
+                }
+              </ScrollArea>
+              :
+              (ask_pdfmessages?.length > 0 || ask_pdfloading) &&
+              <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
+                {ask_pdfmessages?.map((message: any) => {
+                  return (
+                    <div key={message.question} className="w-full flex flex-col  space-y-2   ">
+                      <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
+                        {message.question}
+                      </p>
+                      <p className="bg-dark-100 w-fit  max-w-full px-4 pt-3 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                        <MarkdownConversion markdownContent={message.answer} speed={18} />
+                      </p>
+
+                    </div>
+                  );
+                })}
+                {
+                  ask_pdfloading && (
+                    <div className="w-full flex flex-col">
+                      <Skeleton className="bg-dark-300 w-[200px] h-9 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl my-3 self-end" />
+                      <Skeleton className="bg-dark-100 w-[300px] h-9 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl my-2 " />
                     </div>
                   )
                 }
               </ScrollArea>
             }
-            <NewChatForm data={data} setLoading={setLoading} />
+
+
+
+
+
+
+
+
+            <NewChatForm />
           </div>
-          {(messages.length === 0 && !loading) && (
-            <div className={`flex gap-2 ${SidebarLayout && 'text-xs'}  md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
-              <span >{data.try_pro}</span>
+
+          {ChangeToggle && !AIloading && AImessages?.length === 0 && (
+            <div className={`flex gap-2 ${SidebarLayout && 'text-xs'} md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
+              <span>{data.try_pro}</span>
               {suggestions.map((suggestion) => (
                 <button
                   className="py-2 px-4 border border-dark-100 rounded-3xl"
                   key={suggestion}
-                  onClick={handleClickSuggestions(suggestion)}
+                  onClick={() => handleClickSuggestions(suggestion)}
                 >
                   {suggestion}
                 </button>
               ))}
             </div>
           )}
+
+
         </div>
       </main>
     </>

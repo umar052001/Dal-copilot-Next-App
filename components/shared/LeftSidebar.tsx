@@ -34,7 +34,6 @@ const LeftSidebar = () => {
 
 
   const toggleLanguageAndLayout = () => {
-    console.log('Hello from langu');
     const html = document.documentElement;
     if (language === "en") {
       setLanguage("ar");

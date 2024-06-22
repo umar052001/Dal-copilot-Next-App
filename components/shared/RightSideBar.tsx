@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/languageContext'
 import { determineDictionary } from '@/lib/determineDictionaries'
 import { GoHome } from "react-icons/go";
 import { useAtom } from 'jotai'
-import { RightSidebarAtom, SidebarLayoutAtom, MessagesAtom } from '@/context/jotaiContext/atom'
+import { RightSidebarAtom, SidebarLayoutAtom } from '@/context/jotaiContext/atom'
 import { RiHistoryFill } from "react-icons/ri";
 
 const RightSideBar = () => {
@@ -14,14 +14,14 @@ const RightSideBar = () => {
   const data = determineDictionary(language);
   const [SidebarLayout, setIsSidebarLayout] = useAtom(SidebarLayoutAtom);
   const [RightSidebarMobileOpen, setIsRightSidebarMobileOpen] = useAtom(RightSidebarAtom);
-  const [messages, setMessages] = useAtom(MessagesAtom);
+  // const [messages, setMessages] = useAtom(MessagesAtom);
 
   const handleClickRightSidebar: MouseEventHandler<HTMLDivElement> = () => {
     setIsRightSidebarMobileOpen(!RightSidebarMobileOpen)
   };
 
   const StartnewChat: MouseEventHandler<HTMLButtonElement> = () => {
-    setMessages([]);
+    // setMessages([]);
 
   };
 
