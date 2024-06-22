@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
 type FileObject = {
-    name: string;
+    filename: string;
     sizeInMb: string;
     lastModifiedFormatted: string;
 };

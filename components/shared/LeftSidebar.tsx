@@ -85,7 +85,7 @@ const LeftSidebar = () => {
 
           <div className="flex  flex-col gap-4 pt-6 ">
             <div className="flex items-center gap-2 w-full ">
-              <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className="cursor-pointer english-font">
+              <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className={`${SidebarLayout ? 'english-font' :'arabic-font'} cursor-pointer `}>
                 {data.arabic}
               </Label>
               <Switch

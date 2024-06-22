@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { fileArrayAtom } from "@/context/jotaiContext/atom";
+import { useAtom } from "jotai";
 
 export const useFileUpload = () => {
-  const [fileArray, setFileArray] = useState<any[]>([]);
+const [fileArray, setFileArray] = useAtom(fileArrayAtom);
+
+  // const [fileArray, setFileArray] = useState<any[]>([]);
   const [isFileUploading, setIsFileUploading] = useState<boolean>(false);
 
   const handleFileUpload = async (file: File) => {
@@ -10,8 +14,7 @@ export const useFileUpload = () => {
     setIsFileUploading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_GEN_API}/upload`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_GEN_API}/pdf`,
         {
           method: "POST",
           body: formData,

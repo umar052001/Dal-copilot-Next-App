@@ -100,7 +100,7 @@ const NewChat = () => {
 
       {/* <MarkdownConversion markdownContent={markdownContent} speed={12}  /> */}
       <Ask_pdf />
-      <main className={`${SidebarLayout && 'arabic-font'}`} >
+      <main className={``} >
 
 
         <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
@@ -151,13 +151,13 @@ const NewChat = () => {
 
           {!ChangeToggle &&
             (ask_pdfmessages?.length === 0 && !ask_pdfloading) && (
-              <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
+            <h1 className={`${SidebarLayout ? 'arabic-font' : 'english-font'} text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]`}>
                 {data.where_knowledge_begins}
               </h1>
             )}
           {ChangeToggle &&
             (AImessages?.length === 0 && !AIloading) && (
-              <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
+            <h1 className={`${SidebarLayout ? 'arabic-font' : 'english-font'} text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]`}>
                 {data.where_knowledge_begins}
               </h1>
             )}
@@ -167,14 +167,14 @@ const NewChat = () => {
 
 
 
-          <div className={`w-full  flex flex-col  ${(ask_pdfmessages?.length || AImessages?.length > 0) ? "justify-between h-full " : ""} `}>
+          <div className={`w-full  flex flex-col   ${(ask_pdfmessages?.length || AImessages?.length > 0) ? "justify-between h-full " : ""} `}>
 
             {ChangeToggle ?
               (AImessages?.length > 0 || AIloading) &&
-              <ScrollArea className="flex flex-col w-full  my-2    xl:h-[67vh] lg:h-[60vh] h-[64vh] rounded-3xl " >
+              <ScrollArea className={` flex flex-col w-full  my-2     xl:h-[67vh] lg:h-[60vh] h-[64vh] rounded-3xl`} >
                 {AImessages?.map((message: any) => {
                   return (
-                    <div key={message.question} className="w-full flex flex-col  space-y-2   ">
+                    <div key={message.question} className={`${SidebarLayout ? 'english-font' : 'arabic-font'} w-full flex flex-col  space-y-2 `}  >
                       <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
@@ -232,7 +232,7 @@ const NewChat = () => {
           </div>
 
           {ChangeToggle && !AIloading && AImessages?.length === 0 && (
-            <div className={`flex gap-2 ${SidebarLayout && 'text-xs'} md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
+            <div className={`flex gap-2 ${SidebarLayout && 'text-xs arabic-font'} md:w-11/12 m-auto flex-wrap items-center font-light body-regular`}>
               <span>{data.try_pro}</span>
               {suggestions.map((suggestion) => (
                 <button

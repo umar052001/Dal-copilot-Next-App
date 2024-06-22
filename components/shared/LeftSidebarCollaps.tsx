@@ -99,7 +99,7 @@ const LeftSidebarCollaps = () => {
             <SignedIn>
 
                 <div className=" flex-center  space-top1 flex-col-reverse  ">
-                    <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className=" mt-3 cursor-pointer english-font">
+                    <Label onClick={toggleLanguageAndLayout} id="lang" htmlFor="lang" className={`${SidebarLayout ? 'english-font' :'arabic-font'} mt-3 cursor-pointer `}>
                         {data.arabic}
 
                     </Label>

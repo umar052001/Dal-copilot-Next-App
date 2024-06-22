@@ -82,31 +82,31 @@ const Leftsidebarlinks = ( data:any) => {
                                             const originalIndex = fileArray.length - 1 - index;
                                             return (
                                                 <div key={originalIndex}
-                                                    className=" flex  relative items-center justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
+                                                    className="flex relative items-center justify-between select-none text-xs gap-2 bg-[#E8E8E3] border border-[#E8E8E3] px-2 py-1 rounded-md"
                                                 >
                                                     <div className="flex items-center gap-2">
                                                         <AiTwotoneFilePdf size={24} />
                                                         <div className="leading-4">
-                                                            <p className="font-extrabold  line-clamp-1 w-10/12">{fileObject.name}</p>
+                                                            <p className="font-extrabold ">{fileObject?.filename}</p>
                                                             <div className="flex gap-1">
-                                                                <p>{fileObject.sizeInMb}</p> -
-                                                                <p className="text-gray-500">{fileObject.lastModifiedFormatted}</p>
+                                                                {/* <p>{fileObject.sizeInMb}</p> - */}
+                                                                {/* <p className="text-gray-500">{fileObject.lastModifiedFormatted}</p> */}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="border  transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full " onClick={() => handleDelete(originalIndex)}>
+                                                    {/* <div className="border transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full " onClick={() => handleDelete(originalIndex)}>
                                                         <RxCross2 size={10} stroke-width={0.3} />
-                                                    </div>
-
+                                                    </div> */}
                                                 </div>
                                             );
                                         })
                                     ) : (
-                                        <div className=' flex-center  gap-1  border text-sm  p-2 rounded-md   '>
-                                            <p className="  text-red-400   font-bold">{data.data.upload_pdf} </p>
-                                            <MdOutlineErrorOutline size={20} className=' opacity-50' color="red" />
+                                        <div className='flex-center gap-1 border text-sm p-2 rounded-md'>
+                                            <p className="text-red-400 font-bold">{data.data.upload_pdf}</p>
+                                            <MdOutlineErrorOutline size={20} className='opacity-50' color="red" />
                                         </div>
                                     )}
+
 
                                 </AccordionContent>
                             </AccordionItem>

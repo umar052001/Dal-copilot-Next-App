@@ -19,7 +19,7 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileArrayAtom, PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom } from '@/context/jotaiContext/atom'
+import { fileArrayAtom, SidebarLayoutAtom ,PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom } from '@/context/jotaiContext/atom'
 import { MdFilterList } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import messege from "@/data/messege.json";
@@ -47,6 +47,7 @@ const NewChatForm = () => {
   const [Showpdf, setShowpdf] = useAtom(ShowPDFAtom);
   const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   // const [messages, setMessages] = useAtom(MessagesAtom);
+  const [SidebarLayout] = useAtom(SidebarLayoutAtom);
 
   const { fetchAIResponse } = useAI();
   const { fetchAskPDFResponse} = useAskPDF();
@@ -94,6 +95,7 @@ const NewChatForm = () => {
   const handleDocumentUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
+      console.log("🚀 ~ handleDocumentUpload ~ file:", file)
 
       if (file?.type === 'application/pdf') { // Corrected PDF type check
         try {
@@ -101,6 +103,11 @@ const NewChatForm = () => {
 
           if (success) {
             console.log(message)
+            toast({
+              title: 'Success' ,
+              description: message,
+              variant: "primary",
+            });
           } else {
             console.error(message);
             toast({
@@ -130,7 +137,6 @@ const NewChatForm = () => {
   };
 
 
-
   const handleDelete = (fileName: string) => {
     // setFileArray(fileArray.filter(file => file.name !== fileName));
     setShowpdf(false)
@@ -155,7 +161,7 @@ const NewChatForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex lg:gap-4 gap-3 w-full flex-col border rounded-lg  border-dark-200 p-3  border-solid "
+        className={`${SidebarLayout ? 'arabic-font' : 'english-font'} flex lg:gap-4 gap-3 w-full flex-col border rounded-lg  border-dark-200 p-3  border-solid`} 
       >
         <FormField
           control={form.control}
