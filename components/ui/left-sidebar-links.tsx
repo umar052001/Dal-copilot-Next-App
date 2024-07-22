@@ -11,13 +11,33 @@ import { fileArrayAtom} from '@/context/jotaiContext/atom'
 import { useAtom } from 'jotai'
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
+import { useToast } from "./use-toast";
 
 const Leftsidebarlinks = ( data:any) => {
     const [fileArray, setFileArray] = useAtom(fileArrayAtom);
-
-    const handleDelete = (originalIndex: number) => {
-        const updatedFiles = fileArray.filter((_, index) => index !== originalIndex);
-        setFileArray(updatedFiles);
+    const {toast}=useToast();
+    const handleDelete = async (originalIndex: number,filename:string) => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_GEN_API}/delete_pdf`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ file_name: filename }),
+            })
+            if (!response.ok) {
+                throw new Error("Failed to delete file.");
+              }
+            const data = await response.json();
+            if(data.success){
+                toast({
+                    variant:"primary",
+                    description:"Successfully deleted the file"
+                })
+                const updatedFiles = fileArray.filter((_, index) => index !== originalIndex);
+                setFileArray(updatedFiles);
+            }
+          } catch (error) {
+            console.error(error);
+          }
     };
     const reversedFiles = fileArray.slice().reverse();
 
@@ -94,9 +114,9 @@ const Leftsidebarlinks = ( data:any) => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {/* <div className="border transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full " onClick={() => handleDelete(originalIndex)}>
-                                                        <RxCross2 size={10} stroke-width={0.3} />
-                                                    </div> */}
+                                                    <div className="border transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full " onClick={() => handleDelete(originalIndex,fileObject.filename)}>
+                                                        <RxCross2 size={10} strokeWidth={0.3} />
+                                                    </div>
                                                 </div>
                                             );
                                         })

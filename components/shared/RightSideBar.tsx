@@ -33,7 +33,7 @@ const RightSideBar = () => {
           <Image src="/icons/plus.svg" alt="search" width={16} height={16} />
         </Button>
         <div className="lg:hidden  border rounded-full p-2" onClick={handleClickRightSidebar}>
-          <GoHome size={20} stroke-width={0.3} />
+          <GoHome size={20} strokeWidth={0.3} />
         </div>
       </div>
 

@@ -14,7 +14,9 @@ import { TbLogout } from "react-icons/tb";
 import Leftsidebarlinks from "@/components/ui/left-sidebar-links";
 import LeftSidebarCollaps from "./LeftSidebarCollaps";
 import { LuArrowLeftFromLine } from "react-icons/lu";
-
+import dynamic from "next/dynamic";
+const DynamicSignOutButton = dynamic(() => import('@clerk/nextjs').then(mod => mod.SignOutButton), { ssr: false });
+const DynamicUserButton = dynamic(() => import('@clerk/nextjs').then(mod => mod.UserButton), { ssr: false });
 
 
 const LeftSidebar = () => {
@@ -52,7 +54,7 @@ const LeftSidebar = () => {
         <div className="flex flex-col gap-5  items-center    ">
           <div className=" flex   justify-between items-start  w-full  ">
             <div className="lg:hidden   border rounded-full p-2" onClick={handleClickleftSidebar}>
-              <RxCross2 size={20} stroke-width={0.2} />
+              <RxCross2 size={20} strokeWidth={0.2} />
             </div>
             <div className="flex xl:flex-row  flex-col-reverse   justify-center items-center gap-7">
 
@@ -97,7 +99,7 @@ const LeftSidebar = () => {
 
             </div>
             <div className=" xl:flex-between english-font">
-              <UserButton
+              <DynamicUserButton
                 showName={true}
                 appearance={{
                   elements: {
@@ -117,9 +119,9 @@ const LeftSidebar = () => {
               />
               <button className={`  rounded-md border xl:w-10 w-full xl:mt-0 mt-2  flex-center bg-red-200 border-red-300 p-2   cursor-pointer  transition-all  ease-in-out`}>
                 <span className={`text-red-600 font-bold lg:hidden mx-2 text-sm ${SidebarLayout && 'arabic-font  '} `}>{data.logout}</span>
-                <SignOutButton>
+                <DynamicSignOutButton>
                   <TbLogout className={`${SidebarLayout ? 'rotate-180' : ''} text-red-600`} size={20} />
-                </SignOutButton>
+                </DynamicSignOutButton>
               </button>
             </div>
           </div>
