@@ -19,7 +19,7 @@ import { determineDictionary } from "@/lib/determineDictionaries";
 import { useToast } from "../ui/use-toast";
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { useAtom } from 'jotai'
-import { fileArrayAtom, SidebarLayoutAtom ,PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom } from '@/context/jotaiContext/atom'
+import { fileArrayAtom, SidebarLayoutAtom ,PDFuploadAtom, ShowPDFAtom, ChangeToggleAtom, currentFileAtom } from '@/context/jotaiContext/atom'
 import { MdFilterList } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import messege from "@/data/messege.json";
@@ -48,6 +48,8 @@ const NewChatForm = () => {
   const [ChangeToggle, setChangeToggle] = useAtom(ChangeToggleAtom);
   // const [messages, setMessages] = useAtom(MessagesAtom);
   const [SidebarLayout] = useAtom(SidebarLayoutAtom);
+  const [currentFile,setCurrentFile] = useAtom(currentFileAtom);
+  const [isPdfUploading,setIsPdfUploading] = useState<boolean>(false);
 
   const { fetchAIResponse } = useAI();
   const { fetchAskPDFResponse} = useAskPDF();
@@ -96,13 +98,14 @@ const NewChatForm = () => {
     if (e.target && e.target.files) {
       const file = e.target.files[0];
       console.log("🚀 ~ handleDocumentUpload ~ file:", file)
-
+      setIsPdfUploading(true);
       if (file?.type === 'application/pdf') { // Corrected PDF type check
         try {
           const { success, message } = await handleFileUpload(file);
-
+          setIsPdfUploading(false);
           if (success) {
             console.log(message)
+            setCurrentFile(file.name);
             toast({
               title: 'Success' ,
               description: message,
@@ -170,6 +173,7 @@ const NewChatForm = () => {
             <FormItem className="w-full">
               <FormControl>
                 <Input
+                id="prompt"
                   {...field}
                   placeholder={data.ask_anything}
                   className={`border-0  ${language == "ar"
@@ -183,6 +187,7 @@ const NewChatForm = () => {
         />
         <div className="flex justify-between">
           <div className="flex-center">
+            
             <input
               type="file"
               onChange={(e) => handleDocumentUpload(e)}
@@ -191,30 +196,40 @@ const NewChatForm = () => {
             />
             <div className="flex-center gap-2  ">
 
-              {/* <Tooltip content="Set a focus for your source">
-                </Tooltip> */}
               <label
                 className="file-input__label   px-2 py-1  flex-center gap-2 !text-dark-400   font-light  rounded-full hover:gray transition-all ease-in-out hover:bg-[#E8E8E3]"
+              htmlFor="prompt"
               >
                 <MdFilterList size={16} />
                 {data.focus}
               </label>
-              {/* <Tooltip content="Upload PDF">
-                </Tooltip> */}
-              <label
-                className="file-input__label flex gap-2 px-2 py-1 !text-dark-400 font-light  rounded-full transition-all ease-in-out hover:bg-[#E8E8E3] "
-                htmlFor="file-input"
-              >
-                <Image
-                  src="/icons/attach.svg"
-                  alt="search"
-                  width={14}
-                  height={14}
-                />
-                {data.attach}
-              </label>
-
-
+              {
+                !ChangeToggle &&<>
+                {
+                  isPdfUploading ?(
+                    
+                    <div className="flex items-center justify-center space-x-2">
+                  <div className="w-4 h-4 border-4 border-cyan-500 border-dashed rounded-full animate-spin"></div>
+                  <div className="text-cyan-500 font-semibold text-sm">Uploading...</div>
+                </div>
+                ):(
+                  
+                  <label
+                  className="file-input__label flex gap-2 px-2 py-1 !text-dark-400 font-light  rounded-full transition-all ease-in-out hover:bg-[#E8E8E3] "
+                  htmlFor="file-input"
+                  >
+                  <Image
+                    src="/icons/attach.svg"
+                    alt="search"
+                    width={14}
+                    height={14}
+                    />
+                  {data.attach}
+                </label>
+                )
+              }
+                </>
+                }
             </div>
           </div>
           <div className=" flex-center  ">
@@ -267,7 +282,7 @@ const NewChatForm = () => {
                   </div>
                 </div>
                 <div onClick={() => handleDelete(fileArray.slice(-1)[0]?.name)} className="border  transition-all p-1 absolute right-2 top-[10px] ease-in-out bg-[#d1d1cd] hover:bg-[#c7c7c4] cursor-pointer rounded-full ">
-                  <RxCross2 size={10} stroke-width={0.3} />
+                  <RxCross2 size={10} strokeWidth={0.3} />
                 </div>
               </div>
             )} */}

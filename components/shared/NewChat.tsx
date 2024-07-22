@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, MouseEventHandler } from "react";
+import React, { useState, MouseEventHandler, useEffect } from "react";
 import NewChatForm from "../form/NewChatForm";
 import { useLanguage } from "@/context/languageContext";
 import { determineDictionary } from "@/lib/determineDictionaries";
@@ -13,23 +13,15 @@ import {
   Ask_PDFMessagesAtom, Ask_PDFLoadingAtom,
   ChangeToggleAtom, LeftSidebarAtom,
   RightSidebarAtom, SidebarLayoutAtom,
-  PDFuploadAtom, ShowPDFAtom
+  PDFuploadAtom, ShowPDFAtom,
+  newMessageAtom,
+  isLoadingFinishedAtom,
+  AIMsgNoAtom,
+  PdfMsgNoAtom,
+  newPdfMessageAtom,
 } from '@/context/jotaiContext/atom'
-import messege from "@/data/messege.json";
 import { HiMenuAlt4 } from "react-icons/hi";
 import MarkdownConversion from "../ui/markdown-conversion";
-// import Typewriter from '@/components/ui/typeWriter'
-// import Image from "next/image";
-// import MarkdownPreview from "@uiw/react-markdown-preview";
-// import Markdown from 'react-markdown'
-// import { HiOutlineMenuAlt1 } from "react-icons/hi";
-// import { BsStars } from "react-icons/bs";
-// import { FaRegFilePdf } from "react-icons/fa6";
-// import { TiDocumentText } from "react-icons/ti";
-
-// import { AiOutlineFilePdf } from "react-icons/ai";
-// import { GoDotFill } from "react-icons/go";
-// import MarkdownToHtml from '@/components/ui/markdownToHtml'
 
 import { useAI } from '@/hooks/useAI';
 import Ask_pdf from "../ui/ask_pdf";
@@ -49,6 +41,11 @@ const NewChat = () => {
   const [ask_pdfloading, setAsk_pdfLoading] = useAtom(Ask_PDFLoadingAtom);
   const [AImessages, setAIMessages] = useAtom(AIMessagesAtom);
   const [AIloading, setAILoading] = useAtom(AILoadingAtom);
+  const [newMessage, setNewMessage] = useAtom(newMessageAtom);
+  const [totalAIMessages, setTotalAIMessages] = useAtom(AIMsgNoAtom);
+  const [totalPdfMessages, setTotalPdfMessages] = useAtom(PdfMsgNoAtom);
+  const [newPdfMessage, setNewPdfMessage] = useAtom(newPdfMessageAtom);
+
   const { fetchAIResponse } = useAI();
 
   const suggestions = [
@@ -57,27 +54,30 @@ const NewChat = () => {
     data["how_to_purify_water_in_the_wild"],
     data["whats_the_meaning_of_al_dente?"],
   ];
-
+  useEffect(()=>{
+    function set(prev:any){
+      const PreviousMessages=prev.slice(0,totalAIMessages);
+      return [...PreviousMessages, {...newMessage}]
+    }
+    if(newMessage.answer!=="" && totalAIMessages!==-1){
+      setAIMessages(set);
+    }
+  },[newMessage])
+  useEffect(()=>{
+    function set(prev:any){
+      const PreviousMessages=prev.slice(0,totalPdfMessages);
+      return [...PreviousMessages, {...newPdfMessage}]
+    }
+    if(newPdfMessage.answer!=="" && totalPdfMessages!==-1){
+      setAsk_pdfMessages(set);
+    }
+  },[newPdfMessage])
   const handleLeftToggle = () => {
     setChangeToggle(true)
-    // if (checkPDFUpload) {
-    //   setShowpdf(false)
-    // }
-
   };
   const handleRightToggle = () => {
     setChangeToggle(false)
 
-    // if (ChangeToggle && checkPDFUpload) {
-    //   setChangeToggle(false);
-    //   setShowpdf(true)
-    // } else {
-    //   toast({
-    //     title: "Instruction",
-    //     description: "Please Attach PDF File First !!",
-    //     variant: "destructive",
-    //   });
-    // }
   };
 
   const handleClickleftSidebar: MouseEventHandler<HTMLDivElement> = () => {
@@ -91,28 +91,19 @@ const NewChat = () => {
     setIsRightSidebarMobileOpen(!RightSidebarMobileOpen)
   };
 
-
-
-
-
   return (
     <>
-
-      {/* <MarkdownConversion markdownContent={markdownContent} speed={12}  /> */}
       <Ask_pdf />
       <main className={``} >
 
-
         <div className="pt-5 px-6 pb-3  lg:flex-center flex-between ">
           <div className="lg:hidden text-white shadow-xl bg-dark-500 border    rounded-full p-2" onClick={handleClickleftSidebar}>
-            <HiMenuAlt4 size={20} stroke-width={0.1} />
+            <HiMenuAlt4 size={20} strokeWidth={0.1} />
           </div>
 
           <div className="english-font" >
             <p className="text-center  text-gray-500 lg:mt-3 text-sm   select-none ">
               <span className={`font-extrabold  flex-center  gap-3    border px-[5px] pt-1 pb-[5px]  rounded-full `}>
-                {/* <BsStars />
-              <AiOutlineFilePdf /> */}
                 <span
                   className={` cursor-pointer  rounded-full  flex-center gap-1 px-2 py-[8px] ${ChangeToggle ? "text-white shadow-xl border bg-dark-500 md:border px-2 py-[8px] " : "text-gray-500"}`}
                   onClick={handleLeftToggle}
@@ -134,20 +125,7 @@ const NewChat = () => {
           </div>
         </div>
 
-
         <div className="md:px-10 px-5 flex items-center gap-8 order-2 flex-col  md:w-3/4 m-auto justify-center  ">
-
-
-
-          {/* 
-          {((ask_pdfmessages?.length || AImessages?.length !== 0) && !ask_pdfloading || !AIloading) && (
-            <h1 className="text-center font-extrabold h1-bold lg:mt-[7.6rem] mt-[2.2rem]">
-              {data.where_knowledge_begins}
-            </h1>
-          )} */}
-
-
-
 
           {!ChangeToggle &&
             (ask_pdfmessages?.length === 0 && !ask_pdfloading) && (
@@ -162,26 +140,20 @@ const NewChat = () => {
               </h1>
             )}
 
-
-
-
-
-
           <div className={`w-full  flex flex-col   ${(ask_pdfmessages?.length || AImessages?.length > 0) ? "justify-between h-full " : ""} `}>
 
             {ChangeToggle ?
-              (AImessages?.length > 0 || AIloading) &&
-              <ScrollArea className={` flex flex-col w-full  my-2     xl:h-[67vh] lg:h-[60vh] h-[64vh] rounded-3xl`} >
-                {AImessages?.map((message: any) => {
+              (AImessages?.length > 0 || AIloading ) &&
+              <ScrollArea className={` flex flex-col w-full  my-2     xl:h-[67vh] lg:h-[60vh] h-[64vh] rounded-3xl max-w-full`} >
+                {AImessages?.map((message: any,idx) => {
                   return (
-                    <div key={message.question} className={`${SidebarLayout ? 'arabic-font' : 'english-font'} w-full flex flex-col  space-y-2 `}  >
+                    <div key={idx} className={`${SidebarLayout ? 'arabic-font' : 'english-font'} w-full flex flex-col  space-y-2 `}  >
                       <p className="bg-dark-500   self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
                       <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
                         <MarkdownConversion markdownContent={message.answer} speed={14} />
                       </p>
-
                     </div>
                   );
                 })}
@@ -197,16 +169,15 @@ const NewChat = () => {
               :
               (ask_pdfmessages?.length > 0 || ask_pdfloading) &&
               <ScrollArea className="flex flex-col w-full  my-2    lg:h-[62vh] h-[58vh] rounded-3xl " >
-                {ask_pdfmessages?.map((message: any) => {
+                {ask_pdfmessages?.map((message: any,idx) => {
                   return (
-                    <div key={message.question} className={`w-full flex flex-col  space-y-2 ${SidebarLayout ? 'arabic-font' : 'english-font'}`} >
+                    <div key={idx} className={`w-full flex flex-col  space-y-2 ${SidebarLayout ? 'arabic-font' : 'english-font'}`} >
                       <p className="bg-dark-500    self-end text-white w-fit max-w-full  px-4 py-2 rounded-tr-3xl rounded-tl-3xl rounded-bl-3xl text-wrap my-3">
                         {message.question}
                       </p>
-                      <p className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
-                        <MarkdownConversion markdownContent={message.answer.answer}  speed={18} />
-                      </p>
-
+                      <div className="bg-dark-100 w-fit  max-w-full px-4 py-2 rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-wrap ">
+                        <MarkdownConversion markdownContent={message.answer}  speed={18} />
+                      </div>
                     </div>
                   );
                 })}
@@ -220,13 +191,6 @@ const NewChat = () => {
                 }
               </ScrollArea>
             }
-
-
-
-
-
-
-
 
             <NewChatForm />
           </div>
@@ -245,7 +209,6 @@ const NewChat = () => {
               ))}
             </div>
           )}
-
 
         </div>
       </main>

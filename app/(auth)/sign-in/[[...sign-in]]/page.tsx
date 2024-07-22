@@ -14,7 +14,7 @@ export default function SignInPage() {
           className="lg:w-[32%] md:w-[50%] w-full space-y-6 rounded-2xl  px-4 py-10 sm:px-8"
         >
           <header className="text-center flex flex-col items-center">
-            <Image src="https://www.dal-demo.live/static/media/LogoMark.b58bee8dcba820ab1e4cfb4edb402eb3.svg"
+            <Image src="/LogoMark&Type.svg"
               alt="search"
               width={75}
               height={75}
