@@ -33,12 +33,15 @@ export const useAskPDF = () => {
             return;
           }
           const chunk = decoder.decode(value, { stream: true });
-          const parsedChunk=JSON.parse(chunk);
-          console.log(parsedChunk)
-              if(parsedChunk.answer){
-                setNewMessage((prev)=>({question:prompt,answer:prev.answer+parsedChunk.answer}));
-                setAsk_pdfLoading(false);
-              }
+          // console.log(chunk)
+          // const parsedChunk=JSON.parse(chunk);
+          // console.log(parsedChunk)
+          setNewMessage((prev)=>({question:prompt,answer:prev.answer+chunk}));
+          setAsk_pdfLoading(false);
+          // if(parsedChunk.answer){
+          //   setNewMessage((prev)=>({question:prompt,answer:prev.answer+parsedChunk.answer}));
+          //   setAsk_pdfLoading(false);
+          //     }
 
           // try {
           //   const parsedChunk=await JSON.parse(chunk);
